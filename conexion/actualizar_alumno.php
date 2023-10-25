@@ -1,0 +1,3 @@
+<?php
+var_dump($_POST);   //MUESTRA LOS VALORES TAL CUAL EN EL ARRY
+?>
