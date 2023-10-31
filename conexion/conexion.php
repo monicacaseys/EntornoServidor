@@ -9,6 +9,9 @@
 </head>
 <body>
 <?php
+
+include("./funciones.php");
+
 if (!isset($_GET["pagina"])){
     $paginador=1;
 }else{
@@ -18,21 +21,22 @@ if (!isset($_GET["pagina"])){
 //mysqli = clase conexion a una bbdd
 
 //$conexion =new mysqli("host","usuario","clave","bbdd");
-$conexion=new mysqli("localhost","root","","gestion_practicas"); //constructor para crear la conexion, el xammp no tiene contraseña y el usuario siempre es root
+//$conexion=new mysqli("localhost","root","","gestion_practicas"); //constructor para crear la conexion, el xammp no tiene contraseña y el usuario siempre es root
 
+$conexion = new conectar_db;
 
-if ($conexion -> connect_errno){
+/* if ($conexion -> connect_errno){
     echo "error de conexion";
 }else{
     echo "la conexion se ha realizado con exito";
-}
+} */
 // $conexion->close(); //destruye la conexion
 //consulta de cuantos alumnos hay
 $sql = "SELECT COUNT(*) AS numero_alumnos FROM alumnos;";
 
-$numero_alumno=$conexion-> query($sql);
+$numero_alumnos=$conexion-> consultar($sql);
 
-while($row =$numero_alumno->fetch_array()){
+while($row =$numero_alumnos->fetch_array()){
 
     $cantidad=$row["numero_alumnos"];
 }
@@ -44,7 +48,7 @@ $numero_paginas=ceil($cantidad/10);
 $inicio=($paginador-1)*10 + 1;
 $sql ="SELECT * FROM alumnos LIMIT $inicio,10"; //consulta
 
-$resultado = $conexion->query($sql);//que haga la consulta y la guardo el resultado en una variable y ese resultado un array asociativo
+$resultado = $conexion->consultar($sql);//que haga la consulta y la guardo el resultado en una variable y ese resultado un array asociativo
 ?>
 <h1>Listado de alumnos</h1>
 <!-- crear una tabla para los resultados -->
