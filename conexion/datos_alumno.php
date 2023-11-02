@@ -9,12 +9,15 @@
 </head>
 <body>
     <?php
+    include("./funciones.php");
+
+    $conexion = new conectar_db();
     //necesitamos crear una conexion, la haremos general porque es mejor pero de momento no
-    $conexion=new mysqli("localhost","root","","gestion_practicas");
+    //$conexion=new mysqli("localhost","root","","gestion_practicas");
      //crear variable para guardar la variable del alumno
     $id_alumno= $_GET["id_alumno"];
     $sql_alumno="SELECT * FROM alumnos WHERE id_alumno = ".$id_alumno;
-    $alumno = $conexion->query($sql_alumno);
+    $alumno = $conexion->consultar($sql_alumno);
 
     ?>
     <form method="POST" action="actualizar_alumno.php"> 
