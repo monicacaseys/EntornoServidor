@@ -4,7 +4,7 @@ class conectar_db{
     private $host   = "localhost";
     private $usuario= "root";
     private $clave = "";
-    private $db     ="gestion_practicas";
+    private $db     ="gestor_tareas";
     public $conexion;
     public function __construct(){
         // El constructor lleva la conexión
@@ -45,7 +45,7 @@ class conectar_db{
  
 }
 function volver(){
-    header ("Location: conexion.php");
+    header ("Location: tareas.php");
 }
 
    ?>

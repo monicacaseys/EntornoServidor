@@ -1,0 +1,37 @@
+body {
+    background-color: #8be4ad; /* Fondo verde menta */
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container {
+    background-color: white; /* Fondo blanco del contenedor */
+    border: 2px solid black; /* Borde negro */
+    padding: 20px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+input {
+    border: 2px solid black; /* Borde negro */
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.submit-btn {
+    background-color: #ffeb3b; /* Fondo amarillo */
+    color: black; /* Texto negro */
+    padding: 15px 30px; /* Aumentar tamaño del botón */
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
