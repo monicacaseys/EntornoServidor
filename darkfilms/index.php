@@ -4,64 +4,48 @@
     <meta charset="UTF-8">
     <title>Header con Imágenes</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
+   body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #333;
+}
 
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-            display: flex;
-            justify-content: space-between;
-            align-items: center; /* Centra verticalmente el contenido */
-        }
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333; /* Color de fondo del encabezado, puedes cambiarlo según tu diseño */
+    padding: 10px; /* Añadir espaciado interno al encabezado */
+    color: white; /* Color del texto, puedes cambiarlo según tu diseño */
+}
 
-        #logo {
-            width: 100px; /* Ajusta el ancho del logo según tus necesidades */
-            height: auto;
-            cursor: pointer;
-        }
+.left, .center, .right {
+    padding: 10px; /* Añadir espaciado interno a cada elemento del encabezado */
+}
 
-      
-        #cabecera {
-            display: flex;
-            flex-grow: 1; /* Permite que #cabecera ocupe todo el espacio disponible */
-            justify-content: space-evenly; /* Centra horizontalmente el contenido al principio del contenedor */
-            align-items: center;
-           margin-left:0;
-        }
+.right {
+    display: flex;
+}
 
-        #navigation-icons {
-            display: flex;
-            padding: 30px;
-            margin: 30px;
-        }
+.right div {
+    margin-left: 10px; /* Añadir un pequeño espacio entre los elementos derechos */
+}
+
 
         
     </style>
 </head>
 <body>
-
-    <header>
-        <div id="cabecera">
-            <div>
-                <img id="logo" src="OIP.JPEG" alt="Logo" onclick="location.href='index.php';">
-            </div>
-            <div>
-                <a href="https://es.cooltext.com"><img src="https://images.cooltext.com/5679021.png" width="238" height="83" alt="darkfilms"></a>
-            </div>
-        </div>
-        <div id="navigation-icons">
-            <img src="usu.png" alt="Login" width="45" height="45" onclick="location.href='login.php';">
-            <img src="E.png" width="45" height="45" alt="Buscar" onclick="showSearchBox();">
+<header>
+        <div class="left"> <img id="logo" src="OIP.JPEG" width="80" height="120" alt="Logo" onclick="location.href='index.php';"></div>
+        <div class="center"><a href="https://es.cooltext.com"><img src="https://images.cooltext.com/5679021.png" width="238" height="83" alt="darkfilms"></a></div>
+        <div class="right">
+            <div><img src="usu.png" alt="Login" width="45" height="45" onclick="location.href='login.php';"></div>
+            <div><img src="E.png" width="45" height="45" alt="Buscar" onclick="showSearchBox();"></div>
         </div>
     </header>
 
-    <!-- El resto de tu contenido va aquí -->
+ 
 
     <footer>
         <p>&copy; 2023 Blog de Películas</p>
