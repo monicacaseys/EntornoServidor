@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
                 <label for="contraseña">
-                    <img src="c.png" alt="Contraseña" style="background-color: #d3d3d3; padding: 8px; border-radius: 50%; margin-right: 8px;">
+                    <img src="R.gif" alt="Contraseña" style="background-color: #d3d3d3; padding: 15px; border-radius: 33%; margin-right: 10px;">
                 </label>
                 <input type="password" name="contraseña" id="contraseña" placeholder="Contraseña" required>
             </div>

@@ -10,7 +10,7 @@
 <body >
     <?php
     include ("./funciones.php");
-  // Definir categorías disponibles
+  //categorias disponibles
   $categorias_disponibles = array("ocio", "hogar", "trabajo", "compras");
 
   if(isset($_POST['agregar'])){
@@ -18,16 +18,16 @@
       $descripcion_nueva = $_POST['descripcion'];
       $categoria_seleccionada = $_POST['categoria'];
 
-      // Verificar si se seleccionó 'nueva' y si se proporcionó un nombre para la nueva categoría
+      // verificar si se seleccionó 'nueva' y si se proporciono un nombre para la nueva categoría
       if ($categoria_seleccionada === 'nueva' && !empty($_POST['nuevaCategoria'])) {
           $categoria_nueva = $_POST['nuevaCategoria'];
           
       } else {
-          // Si no es 'nueva' o no se proporcionó un nombre, utilizar la categoría seleccionada
+          // si no es 'nueva' o no se proporciono un nombre, utilizar la categoría seleccionada
           $categoria_nueva = $categoria_seleccionada;
       }
 
-      // Ahora puedes utilizar $categoria_nueva en la inserción de la tarea
+      //utilizar $categoria_nueva en la inserción de la tarea
       $conexion = new conectar_db;
       $sql_insertar_tarea = "INSERT INTO tareas (titulo, descripcion, categoria) VALUES ('$titulo_nuevo', '$descripcion_nueva', '$categoria_nueva')";
       $conexion->consultar($sql_insertar_tarea);
@@ -53,7 +53,7 @@
                 <label for="categoria">Categoría:</label>
                     <select name="categoria" id="categoria" required>
     <?php
-            // Mostrar opciones de categorías disponibles
+            // mostrar opciones de categorias
             foreach ($categorias_disponibles as $categoria) {
                 echo "<option value=\"$categoria\">$categoria</option>";
             }
@@ -62,7 +62,7 @@
                      </select>
 
         <?php
-        // Campo de texto para la nueva categoría
+        // campo de texto para la nueva categoría
         echo '<input type="text" name="nuevaCategoria" placeholder="Nombre de la nueva categoría">';
         ?>
                 </div>
@@ -71,7 +71,7 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-e8JFmOrJjwgeGmqqew3TiOwF1ZGoR3YZq1ERnxveAnFJ6e7pWdGOwB8Wt2GgApdM" crossorigin="anonymous"></script>
+   
 </body>
 </html>
 

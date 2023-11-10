@@ -11,6 +11,8 @@
     <?php
     include("./funciones.php");
 
+    $categorias_disponibles = array("ocio", "hogar", "trabajo", "compras");
+
     if(isset($_GET['id'])){
         $id = $_GET['id'];
         $conexion = new conectar_db;
@@ -20,10 +22,21 @@
         $tarea = $resultado->fetch_array();
 
         if(isset($_POST['guardar'])){
-            // Aquí deberías recoger los datos del formulario y actualizar la tarea en la base de datos.
+            // recoger los datos del formulario y actualizar la tarea en la base de datos.
             $titulo_nuevo = $_POST['titulo'];
             $descripcion_nueva = $_POST['descripcion'];
-            $categoria_nueva = $_POST['categoria'];
+            $categoria_seleccionada = $_POST['categoria'];
+
+            
+     
+      if ($categoria_seleccionada === 'nueva' && !empty($_POST['nuevaCategoria'])) {
+        $categoria_nueva = $_POST['nuevaCategoria'];
+        
+    } else {
+
+        $categoria_nueva = $categoria_seleccionada;
+    }
+
 
             $sql_actualizar = "UPDATE tareas SET titulo='$titulo_nuevo', descripcion='$descripcion_nueva', categoria='$categoria_nueva' WHERE id=$id";
             $conexion->consultar($sql_actualizar);
@@ -43,20 +56,22 @@
                     <textarea class="form-control" name="descripcion"><?php echo $tarea['descripcion']; ?></textarea>
                 </div>
                 <div class="mb-3">
-                     <label for="categoria">Categoría:</label>
-                       <select name="categoria" required>
-                       <option value="ocio">Ocio</option>
-                       <option value="hogar">Hogar</option>
-                       <option value="trabajo">Trabajo</option>
-                       <option value="compras">Compras</option>
-                         <option value="nueva">Añadir Nueva Categoría</option>
-                       </select><br><br>
-                       <?php
-if(isset($_POST['agregar']) && $_POST['categoria'] === 'nueva'){
-    echo '<input type="text" name="nuevaCategoria" required>';
-}
-?>
-               </div>
+                <label for="categoria">Categoría:</label>
+                    <select name="categoria" id="categoria" required>
+    <?php
+            // mostrar opciones de categorias
+            foreach ($categorias_disponibles as $categoria) {
+                echo "<option value=\"$categoria\">$categoria</option>";
+            }
+            ?>
+                          <option value="nueva">Añadir Nueva Categoría</option>
+                     </select>
+
+        <?php
+        // campo de texto para la nueva categoría
+        echo '<input type="text" name="nuevaCategoria" placeholder="Nombre de la nueva categoría">';
+        ?>
+                </div>
 
                 <button type="submit" class="btn btn-primary" name="guardar">Guardar</button>
             </form>
