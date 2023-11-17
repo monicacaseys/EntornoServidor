@@ -42,7 +42,7 @@ $resultado = $conexion->consultar($sql);
         <td>Nombre</td>
         <td>Decripcion</td>
         <td>Precio</td>
-        <td>Categoria</td>
+        <td>Categoriaaa</td>
         
 </tr>
 <?php
