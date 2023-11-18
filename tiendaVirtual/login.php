@@ -45,9 +45,13 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     if ($conexion_db -> contar_resultados($consulta)>0){
         //usuario existe
         echo "¡Inicio de sesion con exito!";
+        $_SESSION['usuario']= $usuario;
+        echo '¡Hola, ' . $nombre_usuario . '! ';
+        header("Location: index.php");
     }else{
         echo "El usuario no existe. Registrate!";
     }
+
 
     //cerrar conexion
 

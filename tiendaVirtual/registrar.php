@@ -50,6 +50,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         $consulta = "INSERT INTO usuarios (nombre, contrasena) VALUES ('$usuario', '$contrasena')";
         if($conexion_db -> consultar($consulta)){
             echo "Nuevo usuario registrado";
+            $_SESSION['usuario']= $usuario;
+            header("Location: index.php");
 
         }else{
             echo "Error al registrar usuario";
