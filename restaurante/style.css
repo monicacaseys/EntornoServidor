@@ -1,0 +1,27 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    border-width: 15px;
+
+    border-color: rgb(26, 22, 22);
+
+    border-style: double;
+
+    padding: 20px;
+    width: 600px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.submit-btn {
+    background-color: yellow;
+    color: black;
+}
