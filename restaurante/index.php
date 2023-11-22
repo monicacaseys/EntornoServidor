@@ -34,15 +34,15 @@
     include("./funciones.php");
 
     $conexion = new conectar_db;
-    $reservaRealizada = false; // para decidir qué mensajes mostrar al usuario según el resultado de la operación de reserva.
+    $reservaRealizada = false; // para decidir que mensajes mostrar al usuario segun el resultado de la reserva.
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $numComensales = $_POST["sillas"];
         $diaReserva = $_POST["dia"];
 
-        // Verificar si se han proporcionado valores válidos
+        // Verificar si se han proporcionado valores validos
         if (!empty($numComensales) && !empty($diaReserva)) {
-            // Obtener mesas disponibles con suficientes sillas y que no estén reservadas para el día seleccionado
+            // Obtener mesas disponibles con suficientes sillas y que no esten reservadas para el día seleccionado
             $sql = "SELECT m.id, m.sillas FROM mesa m
                     WHERE m.sillas = $numComensales AND m.id NOT IN (
                         SELECT r.mesa_id FROM reservas r

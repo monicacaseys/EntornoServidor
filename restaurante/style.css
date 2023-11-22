@@ -4,10 +4,12 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
+    background-color: aquamarine;
 }
 
 .container {
     border-width: 15px;
+    background-color:white;
 
     border-color: rgb(26, 22, 22);
 
@@ -22,6 +24,7 @@ body {
 }
 
 .submit-btn {
+    margin: 10px;
     background-color: yellow;
     color: black;
 }
