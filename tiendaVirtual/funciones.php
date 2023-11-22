@@ -1,4 +1,7 @@
 <?php
+session_start();
+?>
+<?php
 // no tengo la sql  no se si funciona lo de permanencia de login.  falta añadir funcionalidad carrito
 class conectar_db {
     private $host = "localhost";
@@ -9,7 +12,7 @@ class conectar_db {
 
     public function __construct() {
         // Constructor para establecer la conexión
-        $this->conexion = new mysqli($this->host, $this->usuario, $this->clave, $this->db, 3307);
+        $this->conexion = new mysqli($this->host, $this->usuario, $this->clave, $this->db, 3306);
 
         if ($this->conexion->connect_error) {
             die("Error de conexión: " . $this->conexion->connect_error);

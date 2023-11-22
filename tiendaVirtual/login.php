@@ -10,22 +10,18 @@
 </head>
 <body>
 <div class="login-container">
-        <h2>USER LOGIN</h2><br>
+        <h2 style="padding: 15px; margin-right: 10px;">USER LOGIN</h2><br>
         <form class="form-inline" action="" method="post">
-            <div class="form-group">
-                <label for="usuario">
-                    <img src="usu.png" alt="Usuario" style="background-color: #d3d3d3; padding: 8px; border-radius: 50%; margin-right: 8px;">
-                </label>
+        <div class="form-group" style="padding: 15px; margin-right: 10px;">
+                <label for="usuario"></label>
                 <input type="text" name="usuario" id="usuario" placeholder="Usuario" required>
             </div>
-            <div class="form-group">
-                <label for="contrasena">
-                    <img src="R.gif" alt="Contrasena" style="background-color: #d3d3d3; padding: 15px; border-radius: 33%; margin-right: 10px;">
-                </label>
+            <div class="form-group" style="padding: 15px; margin-right: 10px;">
+                <label for="contrasena"></label>
                 <input type="password" name="contrasena" id="contrasena" placeholder="Contrasena" required>
             </div>
-            <div class="form-group">
-                <input class="submit-btn" type="submit" value="Iniciar sesión">
+            <div class="form-group" style="padding: 15px; margin-right: 10px;">
+                <input class="submit-btn" type="submit" value="Iniciar Sesión">
             </div>
 </form> 
 </div>
@@ -46,10 +42,11 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         //usuario existe
         echo "¡Inicio de sesion con exito!";
         $_SESSION['usuario']= $usuario;
-        echo '¡Hola, ' . $nombre_usuario . '! ';
         header("Location: index.php");
     }else{
-        echo "El usuario no existe. Registrate!";
+        echo "El usuario no existe.  ";
+        //añadir boton de volver 
+        echo '<a href="registrar.php" style="display: inline-block; padding: 10px; background-color:#3498db; color: #ffffff; border: 2px solid #2980b9"> Registrate aquí</a>';
     }
 
 

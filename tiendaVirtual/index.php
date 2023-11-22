@@ -1,5 +1,5 @@
 <?php
-session_start();
+include("./funciones.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,15 +20,17 @@ session_start();
             <nav>
                 <ul>
                     <?php
-                    if (isset($_SESSION['usuario'])) {
-                        echo '¡Hola, ' . $usuario . '! ';
-                        echo '<li style="list-style-type: none;"> <a href="logout.php">Cerrar sesion</a></li>';
-                    } else {
-                        // Mostrar botones de login y registro
-                        echo '<li style="list-style-type: none;"> <a href="login.php">Login</a></li>';
-                        echo '<li style="list-style-type: none;"> <a href="registrar.php">Registro</a></li>';
-                    }
-                    ?>
+                if (isset($_SESSION['usuario'])) {
+                    // Si hay una sesión iniciada, muestra mensaje de bienvenida y botón de cerrar sesión
+                    $usuario = $_SESSION['usuario'];
+                    echo '<li style="list-style-type: none;">¡Hola, ' . $usuario . '!</li>';
+                    echo '<li style="list-style-type: none;"><a href="logout.php">Cerrar sesión</a></li>';
+                } else {
+                    // Si no hay sesión iniciada, muestra botones de login y registro
+                    echo '<li style="list-style-type: none;"><a href="login.php">Login</a></li>';
+                    echo '<li style="list-style-type: none;"><a href="registrar.php">Registro</a></li>';
+                }
+                ?>
                     
                     <li style="list-style-type: none;"> <a href="carrito.php"><i class="bi bi-cart"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
   <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
@@ -39,7 +41,7 @@ session_start();
     </header>
     <?php
 
-include("./funciones.php");
+
 
 $conexion = new conectar_db;
 $sql ="SELECT * FROM productos"; //consulta
@@ -54,13 +56,13 @@ $resultado = $conexion->consultar($sql);
         <td>Nombre</td>
         <td>Decripcion</td>
         <td>Precio</td>
-        <td>Categoriaaa</td>
+        <td>Categoria</td>
         
 </tr>
 <?php
 
 while($row = $resultado->fetch_array()){
-    $categoria_query = "SELECT nombre FROM categorias WHERE id_categoria = " . $row["categoria"];
+    $categoria_query = "SELECT nombre FROM categorias WHERE id = " . $row["id_categoria"];
     $categoria_result = $conexion->consultar($categoria_query);
     $categoria_row = $categoria_result->fetch_array();
     $nombre_categoria = $categoria_row["nombre"];
@@ -71,7 +73,7 @@ while($row = $resultado->fetch_array()){
             <td>".$row["precio"]."</td>
             <td>".$nombre_categoria."</td>
             <td>
-            <a href='añadirCarro.php?id=".$row["id"]."'>
+            <a href='añadirCarrito.php?id=".$row["id"]."'>
             <i class='bi bi-cart'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-cart' viewBox='0 0 16 16'>
             <path d='M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z'/></a>
             
