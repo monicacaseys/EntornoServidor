@@ -1,4 +1,5 @@
-<!-- FALTA AÑADIR DESCRIPCION -->
+<!-- FALTA AÑADIR DESCRIPCION 
+AÑADIR CATEGORIAS-->
 
 <?php
 include "funciones.php";
@@ -101,9 +102,8 @@ if (isset($GET['borrar_categoria'])){
 }
 
 //obtener entradas y categorias de la bbdd
-$entradas = $conexion_db->("SELECT * FROM entradas ORDER BY fecha_creacion DESC");
-$categorias = $conexion_db->("SELECT * FROM categorias");
-
+$entradas = $conexion_db->consultar("SELECT * FROM entradas ORDER BY fecha_creacion DESC");
+$categorias = $conexion_db->consultar("SELECT * FROM categorias");
 ?>
 
 
@@ -177,6 +177,19 @@ header {
 </form>
 
  <!-- Mostrar entradas -->
+ <ul>
+        <?php
+        foreach ($entradas as $entrada) {
+            echo '<li>';
+            echo '<h3>' . $entrada['titulo'] . '</h3>';
+            echo '<p>Categoría: ' . obtenerNombreCategoria($entrada['categoria_id'], $categorias) . '</p>';
+            echo '<p>Fecha de Creación: ' . $entrada['fecha_creacion'] . '</p>';
+            echo '<a href="admin.php?editar_entrada=' . $entrada['id'] . '"><i class="bi bi-pencil"></i> Editar</a>';
+            echo '<a href="admin.php?borrar_entrada=' . $entrada['id'] . '"><i class="bi bi-trash"></i> Borrar</a>';
+            echo '</li>';
+        }
+        ?>
+    </ul>
 
             </div>
 
@@ -184,12 +197,6 @@ header {
         <p>&copy; 2023 Blog de Películas</p>
     </footer>
 
-    <script>
-        function showSearchBox() {
-            // Aquí puedes agregar la lógica para mostrar la caja de búsqueda
-            alert("Implementa la lógica para la búsqueda aquí");
-        }
-    </script>
 </body>
 </html>
 
