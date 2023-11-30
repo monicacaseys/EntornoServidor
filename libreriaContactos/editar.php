@@ -36,7 +36,7 @@
             <label for="direccion">Dirección:</label>
             <input type="text" name="direccion" value="<?php echo $tarea['direccion']; ?>">
             <label for="tlf">Tlf:</label>
-            <input type="number" name="tlf" value="<?php echo $tarea['telefono']; ?>">
+            <input type="text" name="tlf" value="<?php echo $tarea['telefono']; ?>">
             <label for="mail">Email:</label>
             <input type="text" name="mail" value="<?php echo $tarea['email']; ?>">
     
