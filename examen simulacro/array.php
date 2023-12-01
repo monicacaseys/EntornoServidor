@@ -35,14 +35,24 @@ function buscar_libro($libros, $titulo){
             return $libro;
         }
     }
-    return echo "Libro no encontrado";
+    return "Libro no encontrado";
 }
 
 //AGREGAR LIBRO
 function agregar_libro($libros, $nuevoLibro){
     $libros[] = $nuevoLibro;
+    return $libros;
 }
 
+$nuevoLibro = array(
+    "titulo" => "Nuevo",
+    "autor" => "Autor",
+    "genero" => "Genero"
+);
+
+$libros = agregar_libro($libros, $nuevoLibro); 
+
+mostrar_libros($libros); //comprobar que se añade al array
 /* ejemplo de como añadir un libro:
 
 $nuevoLibro = array(
