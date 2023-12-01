@@ -3,7 +3,7 @@
 $libros =array(
     array(
         "titulo"=>"Manifiesto Contrasexual",
-        "autor"=> "Paul B.Preciado",
+        "autor"=>"Paul B.Preciado",
         "genero"=>"Educativo"
 
     ),
@@ -15,13 +15,12 @@ $libros =array(
     array(
         "titulo"=>"Plenilunio",
         "autor"=>"Antonio Muñoz Molina",
-        "genero"="Drama">
+        "genero"=>"Drama"
     )
     );
 
 //MOSTRAR TODOS
-function mostrar_libros($libros)
-{
+function mostrar_libros($libros){
     foreach ($libros as $libro) {
         echo "Título: " . $libro['titulo'] . "<br>
               Autor: " . $libro['autor'] . "<br>
@@ -30,8 +29,7 @@ function mostrar_libros($libros)
 }
 
 //BUSCAR LIBRO
-function buscar_libro($libros, $titulo)
-{
+function buscar_libro($libros, $titulo){
     foreach ($libros as $libro) {
         if ($libro['titulo'] == $titulo) {
             return $libro;
@@ -40,18 +38,17 @@ function buscar_libro($libros, $titulo)
     return echo "Libro no encontrado";
 }
 
-//  AGREGAR LIBRO
-function agregar_libro($libros, $nuevoLibro)
-{
+//AGREGAR LIBRO
+function agregar_libro($libros, $nuevoLibro){
     $libros[] = $nuevoLibro;
 }
 
 /* ejemplo de como añadir un libro:
 
 $nuevoLibro = array(
-    "titulo" => "Nuevo Libro",
-    "autor" => "Autor Desconocido",
-    "genero" => "Desconocido"
+    "titulo" => "Nuevo",
+    "autor" => "Autor",
+    "genero" => "Genero"
 );
 
 agregar_libro($libros, $nuevoLibro); */
