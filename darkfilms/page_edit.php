@@ -1,112 +1,21 @@
-<!-- FALTA AÑADIR DESCRIPCION 
-AÑADIR CATEGORIAS-->
 
 <?php
 include "funciones.php";
+include "acciones_entradas.php";
 
-//instancia clase conectar
-$conexion_db = new conectar_db();
+$conexion_db = new conectar_DB();
 
-//AÑADIR ENTRADA
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['agregar_entrada'])){
-    $titulo = $_POST['titulo'];
-    $fecha_creacion= date ('Y-m-d'); //FECHA ACTUAL
-    $categoria_id = $_POST['categoria'];
+agregarEntrada($conexion_db);
+editarEntrada($conexion_db);
+eliminarEntrada($conexion_db);
+agregarCategoria($conexion_db);
+editarCategoria($conexion_db);
+eliminarCategoria($conexion_db);
 
-    //validar no hay campos vacios
-    if (!empty($titulo) && !empty($categoria_id)){
-        $sql = "INSERT INTO entradas (titulo, fecha_creacion, categoria_id)
-         VALUES ('$titulo', '$fecha_creacion', '$categoria_id')";
-
-         $conexion_db-> consultar($sql);
-
-         echo "Entada agregada con exito";
-    } else{
-        echo "completa todos los campos";
-    }
-}
-
-//EDITAR ENTRADA
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['editar_entrada'])){
-    $entrada_id = $_POST ['entrada_id'];
-    $titulo = $_POST['titulo'];
-    $categoria_id = $_POST['categoria'];
-
-    //validar no hay campos vacios
-    if (!empty($titulo) && !empty($categoria_id)){
-        $sql = "UPDATE entradas SET titulo = '$titulo',categoria_id = '$categoria_id' 
-        WHERE id = '$entrada_id'";
-
-         $conexion_db-> consultar($sql);
-
-         echo "Entada editada con exito";
-    } else{
-        echo "completa todos los campos";
-    }
-}
-
-//ELIMINAR ENTRADA
-if (isset($GET['borrar_entrada'])){
-
-    $entrada_id = $_GET['borrar_entrada'];
-    $sql = "DELETE FROM entradas WHERE id='$entrada_id'";
-
-    $conexion_db-> consultar($sql);
-
-    echo "Entrada eliminada con exito";
-}
-
-//AÑADIR NUEVA CATEGORIA
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['agregar_categoria'])){
-
-    $nombre_categoria = $_POST['nombre_categoria'];
-
-    if(!empty($nombre_categoria)){
-        $sql= "INSERT INTO categorias (nombre) VALUES ('$nombre_categoria')";
-
-        $conexion_db-> consultar($sql);
-
-        echo "Categoria añadida con exito";
-    } else{
-        echo "el campo esta vacio";
-    }
-}
-
-//EDITAR CATEGORIA
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['editar_categoria'])){
-
-    $categoria_id = $_POST['categoria_id'];
-    $nombre_categoria = $_POST['nombre_categoria'];
-
-    if (!empty($nombre_categoria)){
-        $sql = "UPDATE categorias SET nombre = '$nombre_categoria'
-        WHERE id = '$categoria_id'";
-
-        $conexion_db-> consulta($sql);
-
-        echo "Categoria editada con exito";
-    } else {
-        echo "el campo esta vacio";
-    }
-}
-
-//BORRAR CATEGORIA
-if (isset($GET['borrar_categoria'])){
-
-    $categoria_id = $_GET['borrar_categoria'];
-    $sql = "DELETE FROM categorias WHERE id='$categoria_id'";
-
-    $conexion_db-> consultar($sql);
-
-    echo "Categoria eliminada con exito";
-}
-
-//obtener entradas y categorias de la bbdd
 $entradas = $conexion_db->consultar("SELECT * FROM entradas ORDER BY fecha_creacion DESC");
 $categorias = $conexion_db->consultar("SELECT * FROM categorias");
+
 ?>
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -159,9 +68,15 @@ header {
     <h2>Administrar entradas del blog </h2>
 
     <!-- Añadir nueva entrada -->
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
     <label for="titulo">Titulo: </label>
     <input type="text" name="titulo" required>
+
+    <label for="imagen">Imagen: </label>
+    <input type="file" name="imagen" accept="image/*">
+
+    <label for="descripcion">Descripcion: </label>
+    <textarea name="descripcion" rows="4" cols="50"></textarea>
 
     <label for="categoria">Categoria: </label>
     <select name="categoria" required>
@@ -178,17 +93,24 @@ header {
 
  <!-- Mostrar entradas -->
  <ul>
-        <?php
-        foreach ($entradas as $entrada) {
-            echo '<li>';
-            echo '<h3>' . $entrada['titulo'] . '</h3>';
-            echo '<p>Categoría: ' . obtenerNombreCategoria($entrada['categoria_id'], $categorias) . '</p>';
-            echo '<p>Fecha de Creación: ' . $entrada['fecha_creacion'] . '</p>';
-            echo '<a href="admin.php?editar_entrada=' . $entrada['id'] . '"><i class="bi bi-pencil"></i> Editar</a>';
-            echo '<a href="admin.php?borrar_entrada=' . $entrada['id'] . '"><i class="bi bi-trash"></i> Borrar</a>';
-            echo '</li>';
-        }
-        ?>
+ <?php
+foreach ($entradas as $entrada) {
+    echo '<li>';
+    echo '<h3>' . $entrada['titulo'] . '</h3>';
+    // Mostrar la imagen si existe
+if (!empty($entrada['imagen'])) {
+    $url_imagen =  $entrada['imagen'];
+    echo '<img src="' . $url_imagen . '" alt="Imagen de la entrada">';
+}
+    echo '<p>' . $entrada['descripcion'] . '</p>';
+    echo '<p>Categoría: ' . obtenerNombreCategoria($entrada['categoria_id'], $categorias) . '</p>';
+    echo '<p>Fecha de Creación: ' . $entrada['fecha_creacion'] . '</p>';
+    echo '<a href="admin.php?editar_entrada=' . $entrada['id'] . '"><i class="bi bi-pencil"></i> Editar</a>';
+    echo '<a href="admin.php?borrar_entrada=' . $entrada['id'] . '"><i class="bi bi-trash"></i> Borrar</a>';
+    echo '</li>';
+}
+?>
+
     </ul>
 
             </div>
@@ -199,5 +121,7 @@ header {
 
 </body>
 </html>
-
+<?php
+$conexion_db->cerrar();
+?>
 

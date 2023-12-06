@@ -41,6 +41,15 @@ class conectar_db {
     }
 }
 
+function obtenerNombreCategoria($categoria_id, $categorias) {
+    foreach ($categorias as $categoria) {
+        if ($categoria['id'] == $categoria_id) {
+            return $categoria['nombre'];
+        }
+    }
+    return 'Categoría no encontrada';
+}
+
 function volver() {
     header("Location: index.php");
 }
