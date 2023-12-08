@@ -66,6 +66,13 @@ header {
 
  <div>
     <h2>Administrar entradas del blog </h2>
+    <div class="config-categories">
+    <a href="config_categorias.php">Configuración de Categorías</a>
+</div>
+<div class="volver">
+    <a href="index.php">Página cliente</a>
+</div>
+
 
     <!-- Añadir nueva entrada -->
     <form method="post" enctype="multipart/form-data">
@@ -90,30 +97,59 @@ header {
 
     <button type="submit" name="agregar_entrada">Agregar entrada </button>
 </form>
-
+</div>
  <!-- Mostrar entradas -->
  <ul>
  <?php
 foreach ($entradas as $entrada) {
     echo '<li>';
     echo '<h3>' . $entrada['titulo'] . '</h3>';
-    // Mostrar la imagen si existe
+// Mostrar la imagen si existe
 if (!empty($entrada['imagen'])) {
-    $url_imagen =  $entrada['imagen'];
+    $url_imagen = "http://localhost:8080/EntornoServidor/darkfilms" . $entrada['imagen'];
     echo '<img src="' . $url_imagen . '" alt="Imagen de la entrada">';
 }
+  // Agregar la siguiente línea para imprimir la URL en la consola del navegador
+  echo '<script>console.log("URL de la imagen: ' . $url_imagen . '");</script>';
+
     echo '<p>' . $entrada['descripcion'] . '</p>';
     echo '<p>Categoría: ' . obtenerNombreCategoria($entrada['categoria_id'], $categorias) . '</p>';
     echo '<p>Fecha de Creación: ' . $entrada['fecha_creacion'] . '</p>';
-    echo '<a href="admin.php?editar_entrada=' . $entrada['id'] . '"><i class="bi bi-pencil"></i> Editar</a>';
-    echo '<a href="admin.php?borrar_entrada=' . $entrada['id'] . '"><i class="bi bi-trash"></i> Borrar</a>';
+    echo '<a href="page_edit.php?editar_entrada=' . $entrada['id'] . '"><i class="bi bi-pencil"></i> Editar</a>';
+    echo '<a href="page_edit.php?borrar_entrada=' . $entrada['id'] . '"><i class="bi bi-trash"></i> Borrar</a>';
+
+       // Formulario de edición (mostrado solo si se está editando esta entrada)
+       if (isset($_GET['editar_entrada']) && $_GET['editar_entrada'] == $entrada['id']) {
+        echo '<form method="post" enctype="multipart/form-data">';
+        
+        echo '<label for="nuevo_titulo">Nuevo Título: </label>';
+        echo '<input type="text" name="nuevo_titulo" value="' . $entrada['titulo'] . '" required>';
+
+        echo '<label for="nueva_descripcion">Nueva Descripción: </label>';
+        echo '<textarea name="nueva_descripcion" rows="4" cols="50">' . $entrada['descripcion'] . '</textarea>';
+
+        echo '<label for="nueva_imagen">Nueva Imagen: </label>';
+        echo '<input type="file" name="nueva_imagen" accept="image/*">';
+        
+        echo '<label for="nueva_categoria">Nueva Categoría: </label>';
+        echo '<select name="nueva_categoria" required>';
+        foreach ($categorias as $categoria) {
+            $selected = ($categoria['id'] == $entrada['categoria_id']) ? 'selected' : '';
+            echo '<option value="' . $categoria['id'] . '" ' . $selected . '>' . $categoria['nombre'] . '</option>';
+        }
+        echo '</select>';
+
+        echo '<button type="submit" name="guardar_edicion">Guardar Edición</button>';
+        echo '</form>';
+    }
+    
     echo '</li>';
 }
 ?>
 
     </ul>
 
-            </div>
+            
 
     <footer>
         <p>&copy; 2023 Blog de Películas</p>

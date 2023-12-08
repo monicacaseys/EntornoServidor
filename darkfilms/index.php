@@ -1,5 +1,28 @@
 <?php
 include "funciones.php";
+
+include "acciones_entradas.php";
+$conexion_db = new conectar_DB();
+
+
+$entradas = $conexion_db->consultar("SELECT * FROM entradas ORDER BY fecha_creacion DESC");
+$categorias = $conexion_db->consultar("SELECT * FROM categorias");
+
+
+// Verificar si se ha seleccionado una categoría para el filtro
+if (isset($_GET['categoria_filtro'])) {
+    $categoria_filtro = $_GET['categoria_filtro'];
+    $filtro_condicion = "WHERE categoria_id = $categoria_filtro";
+} else {
+    $categoria_filtro = null;
+    $filtro_condicion = "";
+}
+
+// Obtener las entradas según el filtro
+$entradas = $conexion_db->consultar("SELECT * FROM entradas $filtro_condicion ORDER BY fecha_creacion DESC");
+?>
+
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -59,7 +82,46 @@ header {
         </div>
     </header>
 
- 
+ <div>
+       <!-- Mostrar menú desplegable para seleccionar la categoría -->
+       <form method="get">
+            <label for="categoria_filtro">Filtrar por categoría:</label>
+            <select name="categoria_filtro" onchange="this.form.submit()">
+                <option value="" <?php echo (!$categoria_filtro) ? 'selected' : ''; ?>>Todas las categorías</option>
+                <?php foreach ($categorias as $categoria) : ?>
+                    <option value="<?php echo $categoria['id']; ?>" <?php echo ($categoria_filtro == $categoria['id']) ? 'selected' : ''; ?>>
+                        <?php echo $categoria['nombre']; ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </form>
+    
+ <!-- Mostrar entradas -->
+ <ul>
+ <?php
+foreach ($entradas as $entrada) {
+    echo '<li>';
+    echo '<h3>' . $entrada['titulo'] . '</h3>';
+// Mostrar la imagen si existe
+if (!empty($entrada['imagen'])) {
+    $url_imagen = "http://localhost:8080/EntornoServidor/darkfilms" . $entrada['imagen'];
+    echo '<img src="' . $url_imagen . '" alt="Imagen de la entrada">';
+}
+  // Agregar la siguiente línea para imprimir la URL en la consola del navegador
+  echo '<script>console.log("URL de la imagen: ' . $url_imagen . '");</script>';
+
+    echo '<p>' . $entrada['descripcion'] . '</p>';
+    echo '<p>Categoría: ' . obtenerNombreCategoria($entrada['categoria_id'], $categorias) . '</p>';
+    echo '<p>Fecha de Creación: ' . $entrada['fecha_creacion'] . '</p>';
+    echo '<a href="admin.php?editar_entrada=' . $entrada['id'] . '"><i class="bi bi-pencil"></i> Editar</a>';
+    echo '<a href="admin.php?borrar_entrada=' . $entrada['id'] . '"><i class="bi bi-trash"></i> Borrar</a>';
+    echo '</li>';
+}
+?>
+
+    </ul>
+
+            </div>
 
     <footer>
         <p>&copy; 2023 Blog de Películas</p>

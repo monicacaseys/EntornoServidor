@@ -28,6 +28,23 @@ class conectar_db {
             return $resultado;
         }
     }
+    public function consultarValor($sql) {
+        // Ejecutar la consulta
+        $result = $this->conexion->query($sql);
+
+        // Verificar si la consulta fue exitosa
+        if ($result) {
+            // Obtener el primer valor de la primera fila
+            $row = $result->fetch_assoc();
+
+            // Liberar el resultado y devolver el valor
+            $result->free();
+            return $row ? array_shift($row) : null;
+        } else {
+            // Si la consulta falla, puedes manejar el error aquí o devolver un valor predeterminado
+            return null;
+        }
+    }
 
     // Contar resultados
     public function contar_resultados($consulta) {
@@ -48,6 +65,14 @@ function obtenerNombreCategoria($categoria_id, $categorias) {
         }
     }
     return 'Categoría no encontrada';
+}
+function obtenerCategoriaPorId($categoria_id, $categorias) {
+    foreach ($categorias as $categoria) {
+        if ($categoria['id'] == $categoria_id) {
+            return $categoria;
+        }
+    }
+    return null; 
 }
 
 function volver() {
