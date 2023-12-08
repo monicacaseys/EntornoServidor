@@ -1,138 +1,135 @@
 <?php
 include "funciones.php";
-
 include "acciones_entradas.php";
 $conexion_db = new conectar_DB();
 
-
-$entradas = $conexion_db->consultar("SELECT * FROM entradas ORDER BY fecha_creacion DESC");
+// Consultar todas las categorías
 $categorias = $conexion_db->consultar("SELECT * FROM categorias");
 
+// Obtener la categoría seleccionada, si está definida
+$categoria_filtro = isset($_GET['categoria_filtro']) ? $_GET['categoria_filtro'] : null;
 
-// Verificar si se ha seleccionado una categoría para el filtro
-if (isset($_GET['categoria_filtro'])) {
-    $categoria_filtro = $_GET['categoria_filtro'];
-    $filtro_condicion = "WHERE categoria_id = $categoria_filtro";
-} else {
-    $categoria_filtro = null;
-    $filtro_condicion = "";
-}
+// Construir la condición WHERE para la consulta SQL
+$filtro_condicion = ($categoria_filtro !== null && $categoria_filtro !== '') ? "WHERE categoria_id = $categoria_filtro" : "";
 
-// Obtener las entradas según el filtro
-$entradas = $conexion_db->consultar("SELECT * FROM entradas $filtro_condicion ORDER BY fecha_creacion DESC");
+// Consultar las entradas con la condición de filtro
+$consulta_entradas = "SELECT * FROM entradas $filtro_condicion ORDER BY fecha_creacion DESC";
+$entradas = $conexion_db->consultar($consulta_entradas);
 ?>
 
-
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Header con Imágenes</title>
     <style>
-   body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #333;
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #333;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 10px;
+            color: white;
+        }
+
+        .left, .center, .right {
+            padding: 10px;
+        }
+        .container{
+            max-width: 800px; /* Ancho máximo del div de las entradas */
+    margin: 0 auto; /* Para centrar el div horizontalmente */
+    padding: 20px;
+        }
+        /* Agrega este bloque de estilos en tu sección de estilos CSS o en tu archivo de estilos externo */
+
+
+  .container ul {
+    list-style: none; /* Quita los estilos de la lista, como los puntos de lista */
+    padding: 0; /* Elimina el espacio interno de la lista */
 }
 
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #333; /* Color de fondo del encabezado, puedes cambiarlo según tu diseño */
-    padding: 10px; /* Añadir espaciado interno al encabezado */
-    color: white; /* Color del texto, puedes cambiarlo según tu diseño */
+.container li {
+    margin-bottom: 20px; /* Márgenes inferiores entre cada entrada */
 }
 
-.left, .center, .right {
-    padding: 10px; /* Añadir espaciado interno a cada elemento del encabezado */
-}
-
-
-
-
-
-
-        
     </style>
 </head>
 <body>
 <header>
-        <div class="left"> <img id="logo" src="OIP.JPEG" width="80" height="120" alt="Logo" onclick="location.href='index.php';"></div>
-        <div class="center"><a href="https://es.cooltext.com"><img src="https://images.cooltext.com/5679021.png" width="238" height="83" alt="darkfilms"></a></div>
-        <div class="right">
+    <div class="left">
+        <img id="logo" src="OIP.JPEG" width="80" height="120" alt="Logo" onclick="location.href='index.php';">
+    </div>
+    <div class="center">
+        <a href="https://es.cooltext.com">
+            <img src="https://images.cooltext.com/5679021.png" width="238" height="83" alt="darkfilms">
+        </a>
+    </div>
+    <div class="right">
         <nav>
-                <ul style="padding: 0; margin: 0; display: flex; align-items: center;">
-                    <?php
+            <ul style="padding: 0; margin: 0; display: flex; align-items: center;">
+                <?php
                 if (isset($_SESSION['usuario'])) {
-                    // Si hay una sesión iniciada, muestra mensaje de bienvenida y botón de cerrar sesión
                     $usuario = $_SESSION['usuario'];
                     echo '<li style="list-style-type: none;  margin-right: 10px;">¡Hola, ' . $usuario . '!</li>';
                     echo '<li style="list-style-type: none; "><a href="logout.php" style="color: white; background-color: #8B0000; text-decoration: none; padding: 8px 12px; border-radius: 4px;">Cerrar sesión</a></li>';
                 } else {
-                    // Si no hay sesión iniciada, muestra botones de login y registro
                     echo '<li style="list-style-type: none; margin-right: 10px;"><a href="login.php" style="font-size: 24px;">👤​</a></li>';
-                echo '<li style="list-style-type: none; margin-right: 10px;"><a href="#" onclick="showSearchBox()" style="font-size: 24px;">🔍​</a></li>';
+                    echo '<li style="list-style-type: none; margin-right: 10px;"><a href="#" onclick="showSearchBox()" style="font-size: 24px;">🔍​</a></li>';
                 }
                 ?>
-                </ul>
-            </nav>
-           
-        </div>
-    </header>
+            </ul>
+        </nav>
+    </div>
+</header>
 
- <div>
-       <!-- Mostrar menú desplegable para seleccionar la categoría -->
-       <form method="get">
-            <label for="categoria_filtro">Filtrar por categoría:</label>
-            <select name="categoria_filtro" onchange="this.form.submit()">
-                <option value="" <?php echo (!$categoria_filtro) ? 'selected' : ''; ?>>Todas las categorías</option>
-                <?php foreach ($categorias as $categoria) : ?>
-                    <option value="<?php echo $categoria['id']; ?>" <?php echo ($categoria_filtro == $categoria['id']) ? 'selected' : ''; ?>>
-                        <?php echo $categoria['nombre']; ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-        </form>
-    
- <!-- Mostrar entradas -->
- <ul>
- <?php
-foreach ($entradas as $entrada) {
-    echo '<li>';
-    echo '<h3>' . $entrada['titulo'] . '</h3>';
-// Mostrar la imagen si existe
-if (!empty($entrada['imagen'])) {
-    $url_imagen = "http://localhost:8080/EntornoServidor/darkfilms" . $entrada['imagen'];
-    echo '<img src="' . $url_imagen . '" alt="Imagen de la entrada">';
-}
-  // Agregar la siguiente línea para imprimir la URL en la consola del navegador
-  echo '<script>console.log("URL de la imagen: ' . $url_imagen . '");</script>';
+<div class="container">
+   <!-- Mostrar menú desplegable para seleccionar la categoría -->
+   <form method="get">
+        <label for="categoria_filtro">Filtrar por categoría:</label>
+        <select name="categoria_filtro" onchange="this.form.submit()">
+            <option value="" <?php echo (!$categoria_filtro) ? 'selected' : ''; ?>>Todas las categorías</option>
+            <?php foreach ($categorias as $categoria) : ?>
+                <option value="<?php echo $categoria['id']; ?>" <?php echo ($categoria_filtro == $categoria['id']) ? 'selected' : ''; ?>>
+                    <?php echo $categoria['nombre']; ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </form>
 
-    echo '<p>' . $entrada['descripcion'] . '</p>';
-    echo '<p>Categoría: ' . obtenerNombreCategoria($entrada['categoria_id'], $categorias) . '</p>';
-    echo '<p>Fecha de Creación: ' . $entrada['fecha_creacion'] . '</p>';
-    echo '<a href="admin.php?editar_entrada=' . $entrada['id'] . '"><i class="bi bi-pencil"></i> Editar</a>';
-    echo '<a href="admin.php?borrar_entrada=' . $entrada['id'] . '"><i class="bi bi-trash"></i> Borrar</a>';
-    echo '</li>';
-}
-?>
+    <!-- Mostrar entradas -->
+    <ul>
+        <?php foreach ($entradas as $entrada) : ?>
+            <li>
+                <h3><?php echo $entrada['titulo']; ?></h3>
+                <?php if (!empty($entrada['imagen'])) : ?>
+                    <?php $url_imagen = "http://localhost:8080/EntornoServidor/darkfilms" . $entrada['imagen']; ?>
+                    <img src="<?php echo $url_imagen; ?>" alt="Imagen de la entrada">
+                    <script>console.log("URL de la imagen: <?php echo $url_imagen; ?>");</script>
+                <?php endif; ?>
 
+                <p><?php echo $entrada['descripcion']; ?></p>
+                <p>Categoría: <?php echo obtenerNombreCategoria($entrada['categoria_id'], $categorias); ?></p>
+                <p>Fecha de Creación: <?php echo $entrada['fecha_creacion']; ?></p>
+            </li>
+        <?php endforeach; ?>
     </ul>
+</div>
 
-            </div>
+<footer>
+    <p>&copy; 2023 Blog de Películas</p>
+</footer>
 
-    <footer>
-        <p>&copy; 2023 Blog de Películas</p>
-    </footer>
-
-    <script>
-        function showSearchBox() {
-            // Aquí puedes agregar la lógica para mostrar la caja de búsqueda
-            alert("Implementa la lógica para la búsqueda aquí");
-        }
-    </script>
+<script>
+    function showSearchBox() {
+        alert("Implementa la lógica para la búsqueda aquí");
+    }
+</script>
 </body>
 </html>
 
