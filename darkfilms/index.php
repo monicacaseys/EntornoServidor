@@ -21,44 +21,78 @@ $entradas = $conexion_db->consultar($consulta_entradas);
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Header con Imágenes</title>
+    <title>Página inicio</title>
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #333;
-        }
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #333;
+    }
 
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #333;
-            padding: 10px;
-            color: white;
-        }
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #333;
+        padding: 10px;
+        color: white;
+    }
 
-        .left, .center, .right {
-            padding: 10px;
-        }
-        .container{
-            max-width: 800px; /* Ancho máximo del div de las entradas */
-    margin: 0 auto; /* Para centrar el div horizontalmente */
-    padding: 20px;
-        }
-        /* Agrega este bloque de estilos en tu sección de estilos CSS o en tu archivo de estilos externo */
+    .left, .center, .right {
+        padding: 10px;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 2px solid #4CAF50; /* Borde verde */
+        border-radius: 10px;
+        box-shadow: 0 0 10px #4CAF50; /* Sombras en verde */
+        text-align: left; /* Centrar el texto */
+    }
+
+    .container ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .container li {
+        margin-bottom: 20px;
+    }
+
+    label {
+        color: white;
+        font-size: 18px; /* Tamaño de letra más grande */
+    }
+
+    select {
+        font-size: 16px; /* Tamaño de letra más grande */
+    }
+
+    h3{
+        color: white;
+        font-size: 40px; /* Tamaño de letra más grande */
+        margin-bottom: 10px;  
+        text-align: center;
+    }
+    p {
+        color: white;
+        font-size: 20px; /* Tamaño de letra más grande */
+        margin-bottom: 10px; /* Espacio inferior para separar los elementos */
+        
+    }
+
+    img {
+        text-align: center;
+        max-width: 100%; /* Ajustar la imagen al ancho del contenedor */
+        height: auto; /* Mantener la proporción de la imagen */
+        margin: 0 auto; /* Centrar la imagen */
+        display: block; /* Asegurar que la imagen se centre correctamente */
+    }
+</style>
 
 
-  .container ul {
-    list-style: none; /* Quita los estilos de la lista, como los puntos de lista */
-    padding: 0; /* Elimina el espacio interno de la lista */
-}
-
-.container li {
-    margin-bottom: 20px; /* Márgenes inferiores entre cada entrada */
-}
-
-    </style>
 </head>
 <body>
 <header>
@@ -79,8 +113,8 @@ $entradas = $conexion_db->consultar($consulta_entradas);
                     echo '<li style="list-style-type: none;  margin-right: 10px;">¡Hola, ' . $usuario . '!</li>';
                     echo '<li style="list-style-type: none; "><a href="logout.php" style="color: white; background-color: #8B0000; text-decoration: none; padding: 8px 12px; border-radius: 4px;">Cerrar sesión</a></li>';
                 } else {
-                    echo '<li style="list-style-type: none; margin-right: 10px;"><a href="login.php" style="font-size: 24px;">👤​</a></li>';
-                    echo '<li style="list-style-type: none; margin-right: 10px;"><a href="#" onclick="showSearchBox()" style="font-size: 24px;">🔍​</a></li>';
+                    echo '<li style="list-style-type: none; margin-right: 10px;"><a href="login.php" style="font-size: 24px; text-decoration: none;">👤​</a></li>';
+                    echo '<li style="list-style-type: none; margin-right: 10px;"><a href="#" onclick="showSearchBox()" style="font-size: 24px; text-decoration: none;">🔍​</a></li>';
                 }
                 ?>
             </ul>

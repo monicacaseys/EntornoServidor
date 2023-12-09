@@ -22,26 +22,134 @@ $categorias = $conexion_db->consultar("SELECT * FROM categorias");
     <meta charset="UTF-8">
     <title>Header con Imágenes</title>
     <style>
-   body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #333;
-}
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #333;
+        color: white;
+    }
 
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #333; /* Color de fondo del encabezado, puedes cambiarlo según tu diseño */
-    padding: 10px; /* Añadir espaciado interno al encabezado */
-    color: white; /* Color del texto, puedes cambiarlo según tu diseño */
-}
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #333;
+        padding: 10px;
+        color: white;
+    }
 
-.left, .center, .right {
-    padding: 10px; /* Añadir espaciado interno a cada elemento del encabezado */
-}
-        
-    </style>
+    .left, .center, .right {
+        padding: 10px;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 2px solid #4CAF50;
+        border-radius: 10px;
+        box-shadow: 0 0 10px #4CAF50;
+        text-align: left;
+    }
+
+    .container ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .container li {
+        margin-bottom: 20px;
+    }
+
+    label {
+        color: white;
+        font-size: 18px;
+    }
+
+    select {
+        font-size: 16px;
+    }
+
+    h2, h3, img {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    p {
+        margin: 0;
+    }
+
+    .config-categories, .volver {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .config-categories a, .volver a {
+        text-decoration: none;
+        color: #3498db;
+        border: 2px solid #3498db;
+        padding: 8px 12px;
+        border-radius: 4px;
+        display: inline-block;
+    }
+
+    .config-categories a:hover, .volver a:hover {
+        background-color: #3498db;
+        color: white;
+    }
+
+    form {
+        margin-top: 20px;
+    }
+
+    form label, form textarea, form select, form button {
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    form button {
+        padding: 8px 12px;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    form button:hover {
+        background-color: #2980b9;
+    }
+
+    ul {
+        padding: 0;
+        margin: 0;
+    }
+
+    ul li {
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 20px;
+    }
+
+    ul li a {
+        text-decoration: none;
+        color: #8B0000;
+        margin-right: 10px;
+    }
+
+    ul li a:hover {
+        color: #8B4513;
+    }
+
+    footer {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid #ddd;
+        color: white;
+        text-align: center;
+    }
+</style>
+
 </head>
 <body>
 <header>
@@ -63,17 +171,15 @@ header {
            
         </div>
     </header>
-
- <div>
-    <h2>Administrar entradas del blog </h2>
-    <div class="config-categories">
+<h2>Administrar entradas del blog </h2>
+<div class="config-categories">
     <a href="config_categorias.php">Configuración de Categorías</a>
 </div>
 <div class="volver">
     <a href="index.php">Página cliente</a>
 </div>
-
-
+ <div id="nuevaEntrada">
+    
     <!-- Añadir nueva entrada -->
     <form method="post" enctype="multipart/form-data">
     <label for="titulo">Titulo: </label>
@@ -97,6 +203,7 @@ header {
 
     <button type="submit" name="agregar_entrada">Agregar entrada </button>
 </form>
+
 </div>
  <!-- Mostrar entradas -->
  <ul>
