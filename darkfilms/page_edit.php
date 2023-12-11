@@ -21,6 +21,7 @@ $categorias = $conexion_db->consultar("SELECT * FROM categorias");
 <head>
     <meta charset="UTF-8">
     <title>Header con Imágenes</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
     body {
         margin: 0;
@@ -140,6 +141,37 @@ $categorias = $conexion_db->consultar("SELECT * FROM categorias");
     ul li a:hover {
         color: #8B4513;
     }
+    .container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.config-entry {
+    border: 2px solid green;
+    padding: 10px;
+    margin-right: auto; /* Esto colocará este div a la izquierda */
+}
+
+.config-categories,
+.volver {
+    margin-left: 10px; /* Puedes ajustar el margen según tus preferencias */
+}
+
+/* Estilos para los enlaces de editar y borrar */
+.editar,
+.borrar {
+    background-color: white;
+    color: blue;
+    padding: 3px 8px;
+    text-decoration: none;
+    margin-left: 5px; /* Espaciado entre enlaces */
+}
+
+.editar:hover,
+.borrar:hover {
+    background-color: lightblue; /* Cambia el fondo al pasar el ratón */
+    color: navy; /* Cambia el color del texto al pasar el ratón */
+}
 
     footer {
         margin-top: 20px;
@@ -153,7 +185,7 @@ $categorias = $conexion_db->consultar("SELECT * FROM categorias");
 </head>
 <body>
 <header>
-        <div class="left"> <img id="logo" src="OIP.JPEG" width="80" height="120" alt="Logo" onclick="location.href='index.php';"></div>
+        <div class="left"> <img id="logo" src="OIP.JPEG" width="130" height="190" alt="Logo" onclick="location.href='index.php';"></div>
         <div class="center"><a href="https://es.cooltext.com"><img src="https://images.cooltext.com/5679021.png" width="238" height="83" alt="darkfilms"></a></div>
         <div class="right">
         <nav>
@@ -172,39 +204,42 @@ $categorias = $conexion_db->consultar("SELECT * FROM categorias");
         </div>
     </header>
 <h2>Administrar entradas del blog </h2>
-<div class="config-categories">
-    <a href="config_categorias.php">Configuración de Categorías</a>
+<div class="container">
+    <div id="nuevaEntrada" class="config-entry">
+        <!-- Añadir nueva entrada -->
+        <h2>Agergar entrada </h2>
+        <form method="post" enctype="multipart/form-data">
+            <label for="titulo">Titulo: </label>
+            <input type="text" name="titulo" required>
+
+            <label for="imagen">Imagen: </label>
+            <input type="file" name="imagen" accept="image/*">
+
+            <label for="descripcion">Descripcion: </label>
+            <textarea name="descripcion" rows="4" cols="50"></textarea>
+
+            <label for="categoria">Categoria: </label>
+            <select name="categoria" required>
+                <?php
+                foreach ($categorias as $categoria){
+                    echo '<option value="' . $categoria['id'] .'">' . $categoria['nombre'] . '</option>'; 
+                }
+                ?>
+            </select>
+
+            <button type="submit" name="agregar_entrada">Agregar entrada </button>
+        </form>
+    </div>
+
+    <div class="config-categories">
+        <a href="config_categorias.php">Configuración de Categorías</a>
+    </div>
+
+    <div class="volver">
+        <a href="index.php">Página cliente</a>
+    </div>
 </div>
-<div class="volver">
-    <a href="index.php">Página cliente</a>
-</div>
- <div id="nuevaEntrada">
-    
-    <!-- Añadir nueva entrada -->
-    <form method="post" enctype="multipart/form-data">
-    <label for="titulo">Titulo: </label>
-    <input type="text" name="titulo" required>
 
-    <label for="imagen">Imagen: </label>
-    <input type="file" name="imagen" accept="image/*">
-
-    <label for="descripcion">Descripcion: </label>
-    <textarea name="descripcion" rows="4" cols="50"></textarea>
-
-    <label for="categoria">Categoria: </label>
-    <select name="categoria" required>
-
-    <?php
-    foreach ($categorias as $categoria){
-        echo '<option value="' . $categoria['id'] .'">' . $categoria['nombre'] . '</option>'; 
-    }
-    ?>
-    </select>
-
-    <button type="submit" name="agregar_entrada">Agregar entrada </button>
-</form>
-
-</div>
  <!-- Mostrar entradas -->
  <ul>
  <?php
@@ -219,12 +254,12 @@ if (!empty($entrada['imagen'])) {
   // Agregar la siguiente línea para imprimir la URL en la consola del navegador
   echo '<script>console.log("URL de la imagen: ' . $url_imagen . '");</script>';
 
-    echo '<p>' . $entrada['descripcion'] . '</p>';
-    echo '<p>Categoría: ' . obtenerNombreCategoria($entrada['categoria_id'], $categorias) . '</p>';
-    echo '<p>Fecha de Creación: ' . $entrada['fecha_creacion'] . '</p>';
-    echo '<a href="page_edit.php?editar_entrada=' . $entrada['id'] . '"><i class="bi bi-pencil"></i> Editar</a>';
-    echo '<a href="page_edit.php?borrar_entrada=' . $entrada['id'] . '"><i class="bi bi-trash"></i> Borrar</a>';
-
+  echo '<p>' . $entrada['descripcion'] . '</p>';
+  echo '<p>Categoría: ' . obtenerNombreCategoria($entrada['categoria_id'], $categorias) . '</p>';
+  echo '<p>Fecha de Creación: ' . $entrada['fecha_creacion'] . '</p>';
+  echo '<a class="editar" href="page_edit.php?editar_entrada=' . $entrada['id'] . '"><i class="bi bi-pencil"></i> Editar</a>';
+  echo '<a class="borrar" href="page_edit.php?borrar_entrada=' . $entrada['id'] . '"><i class="bi bi-trash"></i> Borrar</a>';
+  
        // Formulario de edición (mostrado solo si se está editando esta entrada)
        if (isset($_GET['editar_entrada']) && $_GET['editar_entrada'] == $entrada['id']) {
         echo '<form method="post" enctype="multipart/form-data">';

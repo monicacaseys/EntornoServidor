@@ -16,11 +16,14 @@ $categorias = $conexion_db->consultar("SELECT * FROM categorias");
 <head>
     <meta charset="UTF-8">
     <title>Header con Imágenes</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
     <style>
    body {
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: #333;
+    color: white;
 }
 
 header {
@@ -35,12 +38,63 @@ header {
 .left, .center, .right {
     padding: 10px; /* Añadir espaciado interno a cada elemento del encabezado */
 }
- 
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Alinear elementos en la parte superior */
+    margin: 20px
+}
+
+.config-entry {
+    border: 2px solid green;
+    padding: 10px;
+    margin-right: 10px; /* Pequeño margen entre los elementos */
+}
+
+.categorias-lista {
+    
+    padding: 0;
+    margin: 0;
+}
+
+.categorias-lista li {
+    margin-bottom: 5px; /* Ajusta según tus preferencias */
+}
+
+.categorias-lista a {
+    background-color: white;
+    color: blue;
+    padding: 3px 8px;
+    text-decoration: none;
+    margin-left: 5px; /* Espaciado entre enlaces */
+}
+.volver {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+ .volver a {
+        text-decoration: none;
+        color: #3498db;
+        border: 2px solid #3498db;
+        padding: 8px 12px;
+        border-radius: 4px;
+        display: inline-block;
+    }
+
+   .volver a:hover {
+        background-color: #3498db;
+        color: white;
+    }
+    h2{
+        margin: 20px;
+    }
+
     </style>
 </head>
 <body>
 <header>
-        <div class="left"> <img id="logo" src="OIP.JPEG" width="80" height="120" alt="Logo" onclick="location.href='index.php';"></div>
+        <div class="left"> <img id="logo" src="OIP.JPEG" width="130" height="190" alt="Logo" onclick="location.href='index.php';"></div>
         <div class="center"><a href="https://es.cooltext.com"><img src="https://images.cooltext.com/5679021.png" width="238" height="83" alt="darkfilms"></a></div>
         <div class="right">
         <nav>
@@ -62,26 +116,34 @@ header {
            
         </div>
     </header>
-
     <h2>Configuración de Categorías</h2>
+<div class="container">
+    <div id="nuevaCategoria" class="config-entry">
+        <!-- Formulario para agregar nueva categoría -->
+        <form method="post">
+            <label for="nombre_categoria">Nombre de la categoría:</label>
+            <input type="text" name="nombre_categoria" required>
+            <button type="submit" name="agregar_categoria">Agregar Categoría</button>
+        </form>
+    </div>
 
-<!-- Formulario para agregar nueva categoría -->
-<form method="post">
-    <label for="nombre_categoria">Nombre de la categoría:</label>
-    <input type="text" name="nombre_categoria" required>
-    <button type="submit" name="agregar_categoria">Agregar Categoría</button>
-</form>
-
-<!-- Lista de categorías existentes -->
-<ul>
-    <?php foreach ($categorias as $categoria) : ?>
-        <li>
-            <?php echo $categoria['nombre']; ?>
-            <a href="?editar_categoria=<?php echo $categoria['id']; ?>">Editar</a>
-            <a href="?borrar_categoria=<?php echo $categoria['id']; ?>">Eliminar</a>
-        </li>
-    <?php endforeach; ?>
-</ul>
+    <ul class="categorias-lista">
+        <!-- Lista de categorías existentes -->
+        <?php foreach ($categorias as $categoria) : ?>
+            <li>
+                <?php echo $categoria['nombre']; ?>
+                <a href="?editar_categoria=<?php echo $categoria['id']; ?>"> <i class="bi bi-pencil"></i>Editar</a>
+                <a href="?borrar_categoria=<?php echo $categoria['id']; ?>"><i class="bi bi-trash"></i>Eliminar</a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+    
+    <div class="volver">
+        <a href="page_edit.php">Página admin</a>
+    </div>
+    
+   
+</div>
 
 <?php
 // Lógica para editar categoría seleccionada
@@ -101,7 +163,6 @@ if (isset($_GET['editar_categoria'])) {
         echo 'Categoría no encontrada';
     }
 } ?>
-
 
     <footer>
         <p>&copy; 2023 Blog de Películas</p>

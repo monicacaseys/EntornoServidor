@@ -97,7 +97,7 @@ $entradas = $conexion_db->consultar($consulta_entradas);
 <body>
 <header>
     <div class="left">
-        <img id="logo" src="OIP.JPEG" width="80" height="120" alt="Logo" onclick="location.href='index.php';">
+        <img id="logo" src="OIP.JPEG" width="130" height="190" alt="Logo" onclick="location.href='index.php';">
     </div>
     <div class="center">
         <a href="https://es.cooltext.com">

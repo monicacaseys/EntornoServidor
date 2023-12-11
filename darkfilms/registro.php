@@ -88,7 +88,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 <header>
 <div class="left">
     <a href="index.php">
-        <img id="logo" src="OIP.JPEG" width="80" height="120" alt="Logo">
+        <img id="logo" src="OIP.JPEG" width="130" height="190" alt="Logo">
     </a>
 </div>
 <div class="center">

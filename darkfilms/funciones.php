@@ -74,6 +74,22 @@ function obtenerCategoriaPorId($categoria_id, $categorias) {
     }
     return null; 
 }
+function obtenerIdUsuarioActual() {
+    if (isset($_SESSION['usuario'])) {
+        $conexion_db = new conectar_db();
+        $usuario = $_SESSION['usuario'];
+
+        $consulta = "SELECT id FROM usuarios WHERE username = '$usuario'";
+        $resultado = $conexion_db->consultarValor($consulta);
+
+        if ($resultado !== null) {
+            return $resultado;
+        }
+    }
+
+    return null;
+}
+
 
 function volver() {
     header("Location: index.php");
