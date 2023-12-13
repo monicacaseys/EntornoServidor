@@ -2,7 +2,6 @@
 session_start();
 ?>
 <?php
-// no tengo la sql  no se si funciona lo de permanencia de login.  falta añadir funcionalidad carrito
 class conectar_db {
     private $host = "localhost";
     private $usuario = "root";

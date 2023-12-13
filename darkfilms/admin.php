@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-//credenciales admin
+// Credenciales admin
 $adminUser= 'monik666';
 $contrasenaAdmin='monik666';
 
@@ -10,10 +10,10 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     $usuario = $_POST["usuario"];
     $contrasena = $_POST["contrasena"];
 
-   //verificar si es correcto
+   // Verificar si es correcto
    if($usuario===$adminUser && $contrasena===$contrasenaAdmin){
 
-    $_SESSION['admin_authenticated']=true; //guardo los valores de inico de sesion
+    $_SESSION['admin_authenticated']=true; // Guardo los valores de inico de sesión
 
     header ("Location: page_edit.php");
     exit();

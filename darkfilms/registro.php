@@ -2,21 +2,21 @@
 <?php
 include "funciones.php";
 
-//crear instancia clase conectar
+// Crear instancia clase conectar
 $conexion_db = new conectar_db();
 
 if($_SERVER["REQUEST_METHOD"]=="POST"){
     $usuario = $_POST["usuario"];
     $contrasena = $_POST["contrasena"];
 
-    //verificar si el usuario exixtse
+    // Verificar si el usuario exixtse
     $consulta= "SELECT id FROM usuarios WHERE usuario = '$usuario' AND contrasena = '$contrasena'";
 
     if ($conexion_db -> contar_resultados($consulta)>0){
-        //usuario existe
+        // Usuario existe
         echo "¡Este usuario ya existe!";
     }else{
-        //usuario no existe, lo inserto
+        // Usuario no existe, lo inserto
         $consulta = "INSERT INTO usuarios (usuario, contrasena) VALUES ('$usuario', '$contrasena')";
         if($conexion_db -> consultar($consulta)){
             echo "Nuevo usuario registrado";
@@ -28,7 +28,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         }
     }
 
-    //cerrar conexion
+    // Cerrar conexion
 
     $conexion_db -> cerrar();
 
