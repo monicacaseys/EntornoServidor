@@ -13,8 +13,14 @@ $categoria_filtro = isset($_GET['categoria_filtro']) ? $_GET['categoria_filtro']
 $filtro_condicion = ($categoria_filtro !== null && $categoria_filtro !== '') ? "WHERE categoria_id = $categoria_filtro" : "";
 
 // Consultar las entradas con la condición de filtro
-$consulta_entradas = "SELECT * FROM entradas $filtro_condicion ORDER BY fecha_creacion DESC";
+$consulta_entradas = "SELECT entradas.*, AVG(notas.puntuacion) AS nota_media 
+                      FROM entradas 
+                      LEFT JOIN notas ON entradas.id = notas.entrada_id
+                      $filtro_condicion 
+                      GROUP BY entradas.id 
+                      ORDER BY fecha_creacion DESC";
 $entradas = $conexion_db->consultar($consulta_entradas);
+
 ?>
 
 <!DOCTYPE html>
@@ -81,6 +87,16 @@ $entradas = $conexion_db->consultar($consulta_entradas);
                 <p><?php echo $entrada['descripcion']; ?></p>
                 <p>Categoría: <?php echo obtenerNombreCategoria($entrada['categoria_id'], $categorias); ?></p>
                 <p>Fecha de Creación: <?php echo $entrada['fecha_creacion']; ?></p>
+                <p>Nota Media: <?php echo ($entrada['nota_media'] !== null) ? number_format($entrada['nota_media'], 1) : 'Sin notas'; ?></p>
+
+        <?php if (isset($_SESSION['usuario'])) : ?>
+            <form method="post" action="acciones_entradas.php">
+                <label for="nota">Añadir Nota:</label>
+                <input type="number" name="nota" min="1" max="5" required>
+                <input type="hidden" name="entrada_id" value="<?php echo $entrada['id']; ?>">
+                <input type="submit" value="Guardar Nota">
+            </form>
+        <?php endif; ?>
             </li>
         <?php endforeach; ?>
     </ul>

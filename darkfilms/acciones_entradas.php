@@ -1,5 +1,22 @@
 <?php
 
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['nota'], $_POST['entrada_id'])) {
+        $nota = intval($_POST['nota']);
+        $entrada_id = intval($_POST['entrada_id']);
+        $usuario_id = $_SESSION['usuario_id']; // Asegúrate de tener el id del usuario en la sesión
+
+        // Realiza la inserción de la nota en la base de datos
+        $conexion_db->insertar("INSERT INTO notas (entrada_id, usuario_id, puntuacion) 
+                                VALUES ($entrada_id, $usuario_id, $nota)");
+
+        // Redirige a la página actual después de guardar la nota
+        header("Location: {$_SERVER['HTTP_REFERER']}");
+        exit();
+    }
+}
+
 function agregarEntrada($conexion_db) {
     // AÑADIR ENTRADA
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['agregar_entrada'])) {
