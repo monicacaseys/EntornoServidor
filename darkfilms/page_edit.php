@@ -22,165 +22,7 @@ $categorias = $conexion_db->consultar("SELECT * FROM categorias");
     <meta charset="UTF-8">
     <title>Header con Imágenes</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background-color: #333;
-        color: white;
-    }
-
-    header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background-color: #333;
-        padding: 10px;
-        color: white;
-    }
-
-    .left, .center, .right {
-        padding: 10px;
-    }
-
-    .container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-        border: 2px solid #4CAF50;
-        border-radius: 10px;
-        box-shadow: 0 0 10px #4CAF50;
-        text-align: left;
-    }
-
-    .container ul {
-        list-style: none;
-        padding: 0;
-    }
-
-    .container li {
-        margin-bottom: 20px;
-    }
-
-    label {
-        color: white;
-        font-size: 18px;
-    }
-
-    select {
-        font-size: 16px;
-    }
-
-    h2, h3, img {
-        text-align: center;
-        margin-bottom: 10px;
-    }
-
-    p {
-        margin: 0;
-    }
-
-    .config-categories, .volver {
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-
-    .config-categories a, .volver a {
-        text-decoration: none;
-        color: #3498db;
-        border: 2px solid #3498db;
-        padding: 8px 12px;
-        border-radius: 4px;
-        display: inline-block;
-    }
-
-    .config-categories a:hover, .volver a:hover {
-        background-color: #3498db;
-        color: white;
-    }
-
-    form {
-        margin-top: 20px;
-    }
-
-    form label, form textarea, form select, form button {
-        margin-bottom: 10px;
-        display: block;
-    }
-
-    form button {
-        padding: 8px 12px;
-        background-color: #3498db;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-    form button:hover {
-        background-color: #2980b9;
-    }
-
-    ul {
-        padding: 0;
-        margin: 0;
-    }
-
-    ul li {
-        margin-bottom: 20px;
-        border-bottom: 1px solid #ddd;
-        padding-bottom: 20px;
-    }
-
-    ul li a {
-        text-decoration: none;
-        color: #8B0000;
-        margin-right: 10px;
-    }
-
-    ul li a:hover {
-        color: #8B4513;
-    }
-    .container {
-    display: flex;
-    justify-content: space-between;
-}
-
-.config-entry {
-    border: 2px solid green;
-    padding: 10px;
-    margin-right: auto; /* Esto colocará este div a la izquierda */
-}
-
-.config-categories,
-.volver {
-    margin-left: 10px; /* Puedes ajustar el margen según tus preferencias */
-}
-
-/* Estilos para los enlaces de editar y borrar */
-.editar,
-.borrar {
-    background-color: white;
-    color: blue;
-    padding: 3px 8px;
-    text-decoration: none;
-    margin-left: 5px; /* Espaciado entre enlaces */
-}
-
-.editar:hover,
-.borrar:hover {
-    background-color: lightblue; /* Cambia el fondo al pasar el ratón */
-    color: navy; /* Cambia el color del texto al pasar el ratón */
-}
-
-    footer {
-        margin-top: 20px;
-        padding-top: 20px;
-        border-top: 1px solid #ddd;
-        color: white;
-        text-align: center;
-    }
-</style>
+    <link rel="stylesheet" href="styles.css">
 
 </head>
 <body>
@@ -204,9 +46,15 @@ $categorias = $conexion_db->consultar("SELECT * FROM categorias");
         </div>
     </header>
 <h2>Administrar entradas del blog </h2>
-<div class="container">
+<div class="volverEdit">
+        <a href="index.php">Página cliente</a>
+    </div>
+<div class="containerEdit">
     <div id="nuevaEntrada" class="config-entry">
         <!-- Añadir nueva entrada -->
+        <div class="config-categories">
+        <a href="config_categorias.php">Configuración de Categorías</a>
+    </div>
         <h2>Agergar entrada </h2>
         <form method="post" enctype="multipart/form-data">
             <label for="titulo">Titulo: </label>
@@ -229,15 +77,10 @@ $categorias = $conexion_db->consultar("SELECT * FROM categorias");
 
             <button type="submit" name="agregar_entrada">Agregar entrada </button>
         </form>
+       
     </div>
 
-    <div class="config-categories">
-        <a href="config_categorias.php">Configuración de Categorías</a>
-    </div>
-
-    <div class="volver">
-        <a href="index.php">Página cliente</a>
-    </div>
+    
 </div>
 
  <!-- Mostrar entradas -->
@@ -288,11 +131,8 @@ if (!empty($entrada['imagen'])) {
     echo '</li>';
 }
 ?>
-
     </ul>
-
-            
-
+    
     <footer>
         <p>&copy; 2023 Blog de Películas</p>
     </footer>

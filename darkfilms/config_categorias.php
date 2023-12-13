@@ -17,75 +17,9 @@ $categorias = $conexion_db->consultar("SELECT * FROM categorias");
     <meta charset="UTF-8">
     <title>Header con Imágenes</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-
+    <link rel="stylesheet" href="styles.css">
     <style>
-   body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #333;
-    color: white;
-}
-
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #333; /* Color de fondo del encabezado, puedes cambiarlo según tu diseño */
-    padding: 10px; /* Añadir espaciado interno al encabezado */
-    color: white; /* Color del texto, puedes cambiarlo según tu diseño */
-}
-
-.left, .center, .right {
-    padding: 10px; /* Añadir espaciado interno a cada elemento del encabezado */
-}
-.container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start; /* Alinear elementos en la parte superior */
-    margin: 20px
-}
-
-.config-entry {
-    border: 2px solid green;
-    padding: 10px;
-    margin-right: 10px; /* Pequeño margen entre los elementos */
-}
-
-.categorias-lista {
-    
-    padding: 0;
-    margin: 0;
-}
-
-.categorias-lista li {
-    margin-bottom: 5px; /* Ajusta según tus preferencias */
-}
-
-.categorias-lista a {
-    background-color: white;
-    color: blue;
-    padding: 3px 8px;
-    text-decoration: none;
-    margin-left: 5px; /* Espaciado entre enlaces */
-}
-.volver {
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-
- .volver a {
-        text-decoration: none;
-        color: #3498db;
-        border: 2px solid #3498db;
-        padding: 8px 12px;
-        border-radius: 4px;
-        display: inline-block;
-    }
-
-   .volver a:hover {
-        background-color: #3498db;
-        color: white;
-    }
+   
     h2{
         margin: 20px;
     }
@@ -108,7 +42,6 @@ header {
                 } else {
                     // Si no hay sesión iniciada, muestra botones de login y registro
                     echo '<li style="list-style-type: none; margin-right: 10px;"><a href="login.php" style="font-size: 24px;">👤​</a></li>';
-                echo '<li style="list-style-type: none; margin-right: 10px;"><a href="#" onclick="showSearchBox()" style="font-size: 24px;">🔍​</a></li>';
                 }
                 ?>
                 </ul>
@@ -117,7 +50,7 @@ header {
         </div>
     </header>
     <h2>Configuración de Categorías</h2>
-<div class="container">
+<div class="containerCategoria">
     <div id="nuevaCategoria" class="config-entry">
         <!-- Formulario para agregar nueva categoría -->
         <form method="post">

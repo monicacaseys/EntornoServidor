@@ -22,75 +22,7 @@ $entradas = $conexion_db->consultar($consulta_entradas);
 <head>
     <meta charset="UTF-8">
     <title>Página inicio</title>
-    <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background-color: #333;
-    }
-
-    header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background-color: #333;
-        padding: 10px;
-        color: white;
-    }
-
-    .left, .center, .right {
-        padding: 10px;
-    }
-
-    .container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-        border: 2px solid #4CAF50; /* Borde verde */
-        border-radius: 10px;
-        box-shadow: 0 0 10px #4CAF50; /* Sombras en verde */
-        text-align: left; /* Centrar el texto */
-    }
-
-    .container ul {
-        list-style: none;
-        padding: 0;
-    }
-
-    .container li {
-        margin-bottom: 20px;
-    }
-
-    label {
-        color: white;
-        font-size: 18px; /* Tamaño de letra más grande */
-    }
-
-    select {
-        font-size: 16px; /* Tamaño de letra más grande */
-    }
-
-    h3{
-        color: white;
-        font-size: 40px; /* Tamaño de letra más grande */
-        margin-bottom: 10px;  
-        text-align: center;
-    }
-    p {
-        color: white;
-        font-size: 20px; /* Tamaño de letra más grande */
-        margin-bottom: 10px; /* Espacio inferior para separar los elementos */
-        
-    }
-
-    img {
-        text-align: center;
-        max-width: 100%; /* Ajustar la imagen al ancho del contenedor */
-        height: auto; /* Mantener la proporción de la imagen */
-        margin: 0 auto; /* Centrar la imagen */
-        display: block; /* Asegurar que la imagen se centre correctamente */
-    }
-</style>
+    <link rel="stylesheet" href="styles.css">
 
 
 </head>
@@ -121,7 +53,7 @@ $entradas = $conexion_db->consultar($consulta_entradas);
     </div>
 </header>
 
-<div class="container">
+<div class="containerInicio">
    <!-- Mostrar menú desplegable para seleccionar la categoría -->
    <form method="get">
         <label for="categoria_filtro">Filtrar por categoría:</label>

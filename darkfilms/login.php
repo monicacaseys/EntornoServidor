@@ -41,44 +41,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #333;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #333;
-            padding: 10px;
-            color: white;
-        }
-
-        .left, .center, .right {
-            padding: 10px;
-        }
-        .container{
-            max-width: 800px; /* Ancho máximo del div de las entradas */
-    margin: 0 auto; /* Para centrar el div horizontalmente */
-    padding: 20px;
-        }
-        /* Agrega este bloque de estilos en tu sección de estilos CSS o en tu archivo de estilos externo */
-
-
-  .container ul {
-    list-style: none; /* Quita los estilos de la lista, como los puntos de lista */
-    padding: 0; /* Elimina el espacio interno de la lista */
-}
-
-.container li {
-    margin-bottom: 20px; /* Márgenes inferiores entre cada entrada */
-}
-
-    </style>
+    <link rel="stylesheet" href="styles.css">
+   
 </head>
 <body>
 
@@ -111,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </nav>
     </div>
 </header>
-<div class="container d-flex justify-content-center align-items-center h-100">
+<div class="containerLogin d-flex justify-content-center align-items-center h-100">
         <div class="login-container p-4 rounded shadow-lg text-white text-center">
         <div class="form-group mb-3">
                     <a href="admin.php" class="btn btn-danger btn-block text-white" style="box-shadow: 0 0 10px #ffcc00;; text-decoration: none; border-radius: 4px;">Soy admin</a>

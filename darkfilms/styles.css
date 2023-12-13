@@ -1,0 +1,278 @@
+
+    /* Estilos para la página de inicio */
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #333;
+        color: white;
+    }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #333;
+        padding: 10px;
+        color: white;
+    }
+
+    .left, .center, .right {
+        padding: 10px;
+    }
+
+    .containerInicio {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 2px solid #4CAF50;
+        border-radius: 10px;
+        box-shadow: 0 0 10px #4CAF50;
+        text-align: left;
+    }
+
+    .containerInicio ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .containerInicio li {
+        margin-bottom: 20px;
+    }
+
+    label {
+        color: white;
+        font-size: 18px;
+    }
+
+    select {
+        font-size: 16px;
+    }
+
+    .containerInicio h3{
+        color: white;
+        font-size: 40px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .containerInicio p {
+        color: white;
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .containerInicio img {
+        text-align: center;
+        max-width: 100%;
+        height: auto;
+        margin: 0 auto;
+        display: block;
+    }
+
+    /* Estilos para la página de administración */
+    .containerAdmin {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .containerAdmin ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .containerAdmin li {
+        margin-bottom: 20px;
+    }
+
+    /* Estilos para la página de categorías */
+    .containerCategoria {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin: 20px;
+    }
+
+    .config-entry {
+        border: 2px solid green;
+        padding: 10px;
+        margin-right: 10px;
+    }
+
+    .categorias-lista {
+        padding: 0;
+        margin: 0;
+    }
+
+    .categorias-lista li {
+        margin-bottom: 5px;
+    }
+
+    .categorias-lista a {
+        background-color: white;
+        color: blue;
+        padding: 3px 8px;
+        text-decoration: none;
+        margin-left: 5px;
+    }
+
+    .volver {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .volver a {
+        text-decoration: none;
+        color: #3498db;
+        border: 2px solid #3498db;
+        padding: 8px 12px;
+        border-radius: 4px;
+        display: inline-block;
+    }
+
+    .volver a:hover {
+        background-color: #3498db;
+        color: white;
+    }
+
+    h2 {
+        margin: 20px;
+    }
+
+    /* Estilos para la página de inicio de sesión */
+    .containerLogin {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .containerLogin ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .containerLogin li {
+        margin-bottom: 20px;
+    }
+
+    /* Estilos para la página de edición */
+    .containerEdit {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .containerEdit ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .containerEdit li {
+        margin-bottom: 20px;
+    }
+
+    /* Estilos comunes para la página de edición */
+    .containerEdit label,
+    .containerEdit select,
+    .containerEdit button {
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .containerEdit button {
+        padding: 8px 12px;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .containerEdit button:hover {
+        background-color: #2980b9;
+    }
+
+    .containerEdit ul {
+        padding: 0;
+        margin: 0;
+    }
+
+    .containerEdit li {
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 20px;
+    }
+
+    .containerEdit li a {
+        text-decoration: none;
+        color: #8B0000;
+        margin-right: 10px;
+    }
+
+    .containerEdit li a:hover {
+        color: #8B4513;
+    }
+
+    .containerEdit .config-entry {
+        border: 2px solid green;
+        padding: 10px;
+        margin-right: auto;
+    }
+
+    .config-categories,
+    .volverEdit {
+        margin-left: 10px;
+    }
+
+    .config-categories,
+    .volverEdit {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .config-categories,
+    .volverEdit a {
+        text-decoration: none;
+        color: #3498db;
+        border: 2px solid #3498db;
+        padding: 8px 12px;
+        border-radius: 4px;
+        display: inline-block;
+    }
+
+    .config-categories,
+    .volverEdit a:hover {
+        background-color: #3498db;
+        color: white;
+    }
+    .editar,
+    .borrar {
+        background-color: white;
+        color: blue;
+        padding: 3px 8px;
+        text-decoration: none;
+        margin-left: 5px;
+    }
+
+    .editar:hover,
+    .borrar:hover {
+        background-color: lightblue;
+        color: navy;
+    }
+
+    /* Estilos para la página de registro */
+    .containerRegistro {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .containerRegistro ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .containerRegistro li {
+        margin-bottom: 20px;
+    }
+

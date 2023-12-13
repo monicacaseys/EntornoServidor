@@ -37,7 +37,7 @@ class conector_db{
     public function actualizarRegistro($tabla, $campoClave, $id, $nuevosValores) {
         $sets = [];
         foreach ($nuevosValores as $campo => $valor) {
-            $campo = $this->conn->real_escape_string($campo);
+            $campo = $this->conn->real_escape_string($campo); //kitar basura al campo
             $valor = $this->conn->real_escape_string($valor);
             $sets[] = "$campo = '$valor'";
         }
