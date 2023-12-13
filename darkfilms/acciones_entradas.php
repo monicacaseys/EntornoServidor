@@ -33,7 +33,7 @@ function agregarEntrada($conexion_db) {
                         echo "Entrada agregada con éxito";
                         
                         // Redirigir a la página de administración después de agregar la entrada
-                        header("Location: admin.php");
+                        header("Location: page_edit.php");
                         exit(); // Importante para detener la ejecución del script después de la redirección
                     } else {
                         echo "Error al agregar la entrada a la base de datos";

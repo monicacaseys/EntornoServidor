@@ -114,7 +114,6 @@ $entradas = $conexion_db->consultar($consulta_entradas);
                     echo '<li style="list-style-type: none; "><a href="logout.php" style="color: white; background-color: #8B0000; text-decoration: none; padding: 8px 12px; border-radius: 4px;">Cerrar sesión</a></li>';
                 } else {
                     echo '<li style="list-style-type: none; margin-right: 10px;"><a href="login.php" style="font-size: 24px; text-decoration: none;">👤​</a></li>';
-                    echo '<li style="list-style-type: none; margin-right: 10px;"><a href="#" onclick="showSearchBox()" style="font-size: 24px; text-decoration: none;">🔍​</a></li>';
                 }
                 ?>
             </ul>
@@ -158,12 +157,6 @@ $entradas = $conexion_db->consultar($consulta_entradas);
 <footer>
     <p>&copy; 2023 Blog de Películas</p>
 </footer>
-
-<script>
-    function showSearchBox() {
-        alert("Implementa la lógica para la búsqueda aquí");
-    }
-</script>
 </body>
 </html>
 
