@@ -1,7 +1,6 @@
 <?php
 session_start();
-?>
-<?php
+
 class conectar_db {
     private $host = "localhost";
     private $usuario = "root";
@@ -11,7 +10,7 @@ class conectar_db {
 
     public function __construct() {
         // Constructor para establecer la conexión
-        $this->conexion = new mysqli($this->host, $this->usuario, $this->clave, $this->db, 3306);
+        $this->conexion = new mysqli($this->host, $this->usuario, $this->clave, $this->db, 330);
 
         if ($this->conexion->connect_error) {
             die("Error de conexión: " . $this->conexion->connect_error);

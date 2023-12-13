@@ -13,13 +13,34 @@ $categoria_filtro = isset($_GET['categoria_filtro']) ? $_GET['categoria_filtro']
 $filtro_condicion = ($categoria_filtro !== null && $categoria_filtro !== '') ? "WHERE categoria_id = $categoria_filtro" : "";
 
 // Consultar las entradas con la condición de filtro
-$consulta_entradas = "SELECT entradas.*, AVG(notas.puntuacion) AS nota_media 
+$consulta_entradas = "SELECT entradas.*, AVG(notas1.puntuacion) AS nota_media 
                       FROM entradas 
-                      LEFT JOIN notas ON entradas.id = notas.entrada_id
+                      LEFT JOIN notas1 ON entradas.id = notas1.entrada_id
                       $filtro_condicion 
                       GROUP BY entradas.id 
                       ORDER BY fecha_creacion DESC";
 $entradas = $conexion_db->consultar($consulta_entradas);
+
+// Verificar si se ha enviado un formulario mediante POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Verificar la existencia de los datos necesarios en el formulario
+    if (isset($_POST['nota'], $_POST['entrada_id'], $_SESSION['usuario_id'])) {
+        // Obtener los datos del formulario
+        $nota = intval($_POST['nota']);
+        $entrada_id = intval($_POST['entrada_id']);
+        $usuario_id = $_SESSION['usuario_id']; // Asegúrate de tener el id del usuario en la sesión
+
+        // Realiza la inserción de la nota en la base de datos
+        $conexion_db->insertar("INSERT INTO notas1 (entrada_id, usuario_id, puntuacion) 
+                                VALUES ($entrada_id, $usuario_id, $nota)");
+
+        // Redirige a la página actual después de guardar la nota
+        header("Location: index.php");
+        exit();
+    } else {
+        echo "error";
+    }
+}
 
 ?>
 
@@ -90,7 +111,7 @@ $entradas = $conexion_db->consultar($consulta_entradas);
                 <p>Nota Media: <?php echo ($entrada['nota_media'] !== null) ? number_format($entrada['nota_media'], 1) : 'Sin notas'; ?></p>
 
         <?php if (isset($_SESSION['usuario'])) : ?>
-            <form method="post" action="acciones_entradas.php">
+            <form method="post" action="">
                 <label for="nota">Añadir Nota:</label>
                 <input type="number" name="nota" min="1" max="5" required>
                 <input type="hidden" name="entrada_id" value="<?php echo $entrada['id']; ?>">
