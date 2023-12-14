@@ -10,7 +10,7 @@ class conectar_db {
 
     public function __construct() {
         // Constructor para establecer la conexión
-        $this->conexion = new mysqli($this->host, $this->usuario, $this->clave, $this->db, 3307);
+        $this->conexion = new mysqli($this->host, $this->usuario, $this->clave, $this->db, 3306);
 
         if ($this->conexion->connect_error) {
             die("Error de conexión: " . $this->conexion->connect_error);
@@ -26,6 +26,7 @@ class conectar_db {
             return $resultado;
         }
     }
+    
     public function consultarValor($sql) {
         // Ejecutar la consulta
         $result = $this->conexion->query($sql);
@@ -77,7 +78,7 @@ function obtenerIdUsuarioActual() {
         $conexion_db = new conectar_db();
         $usuario = $_SESSION['usuario'];
 
-        $consulta = "SELECT id FROM usuarios WHERE username = '$usuario'";
+        $consulta = "SELECT id FROM usuarios WHERE usuario = '$usuario'";
         $resultado = $conexion_db->consultarValor($consulta);
 
         if ($resultado !== null) {
