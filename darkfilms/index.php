@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 echo "INSERT INTO notas1 (entrada_id, usuario_id, puntuacion) 
 VALUES ($entrada_id, $usuario_id, $nota)";
         // Realiza la inserción de la nota en la base de datos
-        $conexion_db->insertar("INSERT INTO notas1 (entrada_id, usuario_id, puntuacion) 
+        $conexion_db->consultar("INSERT INTO notas1 (entrada_id, usuario_id, puntuacion) 
                                 VALUES ($entrada_id, $usuario_id, $nota)");
 
         // Redirige a la página actual después de guardar la nota
@@ -82,7 +82,7 @@ VALUES ($entrada_id, $usuario_id, $nota)";
                     echo '<li style="list-style-type: none;  margin-right: 10px;">¡Hola, ' . $usuario . '!</li>';
                     echo '<li style="list-style-type: none; "><a href="logout.php" style="color: white; background-color: #8B0000; text-decoration: none; padding: 8px 12px; border-radius: 4px;">Cerrar sesión</a></li>';
                 } else {
-                    echo '<li style="list-style-type: none; margin-right: 10px;"><a href="login.php" style="font-size: 24px; text-decoration: none;">👤​</a></li>';
+                    echo '<li style="list-style-type: none; margin-right: 10px;"><a href="login.php" style="font-size: 50px; text-decoration: none;">👤​</a></li>';
                 }
                 ?>
             </ul>

@@ -8,7 +8,7 @@ class conexion_db{
     public $conexion;
     public function __construct(){
         // El constructor lleva la conexión
-        $this->conexion = new mysqli($this->host, $this->usuario, $this->clave, $this->db, 3306);
+        $this->conexion = new mysqli($this->host, $this->usuario, $this->clave, $this->db, 3307);
 
     
         if ($this->conexion->connect_error) {

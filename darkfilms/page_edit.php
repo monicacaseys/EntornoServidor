@@ -91,7 +91,7 @@ foreach ($entradas as $entrada) {
     echo '<h3>' . $entrada['titulo'] . '</h3>';
 // Mostrar la imagen si existe
 if (!empty($entrada['imagen'])) {
-    $url_imagen = "http://localhost:8080/EntornoServidor/darkfilms" . $entrada['imagen'];
+    $url_imagen = "." . $entrada['imagen'];
     echo '<img src="' . $url_imagen . '" alt="Imagen de la entrada">';
 }
   // Agregar la siguiente línea para imprimir la URL en la consola del navegador
