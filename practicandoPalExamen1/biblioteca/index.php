@@ -10,7 +10,7 @@ if (!isset($_SESSION['usuario'])){
 }
 
 //verificar envio formulario
-if ($_SERVER["REQUEST_METHOD"]=="POST"){
+if ($_SERVER['REQUEST_METHOD']==='POST'){
     $titulo = $_POST['titulo'];
     $autor = $_POST['autor'];
 
