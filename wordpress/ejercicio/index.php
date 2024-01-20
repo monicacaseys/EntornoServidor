@@ -1,15 +1,12 @@
 <?php get_header();?>
+<div>
+<div class="container">
 
-   
-    <div class="container">
-
-        <div class="izquierda">
-
-            <section class="contenido">
-
-            <?php if ( have_posts() ) :
-                while ( have_posts() ) : the_post(); ?>
-                <article>
+    <div class="izquierda">
+        <section class="contenido">
+                <?php if ( have_posts() ) :
+                    while ( have_posts() ) : the_post(); ?>
+                       <article>
                     <div class="imagen"><?php the_post_thumbnail();?></div>
 
                     <div class="titulo"><?php the_title();?></div>
@@ -22,27 +19,17 @@
                         <a href="<?php the_permalink();?>">Leer más</a>
                     </div>
                 </article>
-                
-
 
                 <?php endwhile;
                 
-                endif;
-                            ?>
+            endif;
+                        ?>
+        </section>
 
-            
-
-
-
-
-
-
-            </section>
-
-        </div>
+    </div>
 
     
-        <aside>
+    <aside>
             <div class="aside_block">
                <?php if (is_active_sidebar("barra-lateral")){?>
                     <div class="widget-area">
@@ -51,7 +38,6 @@
                 <?php } ?>
             </div>
         </aside>
-
-    </div>
+</div>
 
 <?php get_footer();?>
