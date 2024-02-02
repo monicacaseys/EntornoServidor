@@ -15,3 +15,4 @@ function cargarPersonas(sexo) {
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send("sexo=" + sexo);
 }
+

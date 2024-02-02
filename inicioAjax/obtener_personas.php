@@ -16,7 +16,7 @@ $sexo = $_POST['sexo'];
 
 // Consulta SQL basada en la opción seleccionada
 if ($sexo == 'hombres' || $sexo == 'mujeres') {
-    $sql = "SELECT * FROM listado_personas WHERE sexo  = '$sexo'";
+    $sql = "SELECT * FROM listado_personas WHERE sexo = '$sexo'";
 } elseif ($sexo == 'todos') {
     $sql = "SELECT * FROM listado_personas";
 } else {
@@ -28,7 +28,7 @@ $result = $conexion->query($sql);
 if ($result->num_rows > 0) {
     // Imprimir resultados en formato HTML
     while ($row = $result->fetch_assoc()) {
-        echo "ID: " . $row['COL 1'] . " Nombre: " . $row['COL 2'] . "<br>";
+        echo "ID: " . $row['id'] . " Nombre: " . $row['nombre'] . " Apellidos: " . $row['apellidos'] . "<br>";
     }
 } else {
     echo "No se encontraron resultados.";
