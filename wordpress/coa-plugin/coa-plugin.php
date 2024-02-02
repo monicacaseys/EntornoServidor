@@ -1,26 +1,59 @@
 <?php
 /*
 Plugin Name: Certificados de Análisis (COA) Plugin
-Description: Muestra los Certificados de Análisis de los productos de CBD.
+Description: Muestra los Certificados de Análisis de los productos de CBD. 
+Cambia el color del head y footer a rosa.
 Version: 1.0
 Author: Monica Seys Oltra
 */
 
 $names_base = array('CBD Flor', 'CBC Resina', 'CBD Aceite');
+// Acción al activar el plugin
+register_activation_hook(__FILE__, 'coa_plugin_activate');
 
+function coa_plugin_activate() {
+    // Crear la tabla en la base de datos al activar el plugin
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'coa_plugin_data';
+
+    $charset_collate = $wpdb->get_charset_collate();
+
+    $sql = "CREATE TABLE $table_name (
+        id mediumint(9) NOT NULL AUTO_INCREMENT,
+        name varchar(255) NOT NULL,
+        text longtext NOT NULL,
+        PRIMARY KEY (id)
+    ) $charset_collate;";
+
+    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+    dbDelta($sql);
+}
+
+// Función para guardar los datos en la nueva tabla
+function save_data_to_database($name, $text) {
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'coa_plugin_data';
+
+    $wpdb->insert(
+        $table_name,
+        array(
+            'name' => $name,
+            'text' => $text,
+        )
+    );
+}
+
+// Modificar el código para usar la nueva función
 function coa_plugin_admin_page() {
     if (isset($_POST['submit_form'])) {
         $selected_name = sanitize_text_field($_POST['selected_name']);
         $text = sanitize_text_field($_POST['text']);
 
-        $data_to_save = get_option('coa_plugin_data', array());
-
-        // Validar y sanitizar los datos antes de guardarlos en la base de datos
-        $data_to_save[$selected_name] = $text;
-
-        // Guardar los datos en la base de datos usando update_option
-        update_option('coa_plugin_data', $data_to_save);
+        // Guardar los datos en la nueva tabla
+        save_data_to_database($selected_name, $text);
     }
+    // Obtener los datos guardados
+    $stored_data = get_option('coa_plugin_data', array());
 
     ?>
     <div class="wrap">
@@ -40,6 +73,23 @@ function coa_plugin_admin_page() {
             <input type="text" name="text" value="" required>
             <input type="submit" name="submit_form" value="Guardar">
         </form>
+        <h2>Nombres Guardados</h2>
+        <table class="wp-list-table widefat fixed striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Shortcode</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($stored_data as $name => $text) : ?>
+                    <tr>
+                        <td><?php echo esc_html($name); ?></td>
+                        <td>[coa_plugin_view_text name="<?php echo esc_attr($name); ?>"]</td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
     <?php
 }
@@ -55,34 +105,53 @@ function coa_plugin_menu() {
 }
 add_action('admin_menu', 'coa_plugin_menu');
 
+// Función para mostrar nombres en el frontend
 function display_names_on_frontend() {
-    $stored_data = get_option('coa_plugin_data', array());
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'coa_plugin_data';
 
-    echo '<ul>';
+    $results = $wpdb->get_results("SELECT name FROM $table_name");
 
-    foreach ($stored_data as $name => $text) {
-        $url = esc_url(add_query_arg('name', $name, home_url('/ver-texto')));
-        echo "<li><a href='{$url}'>" . esc_html($name) . '</a></li>';
+    if (empty($results)) {
+        return '<p>No hay nombres disponibles.</p>';
     }
 
-    echo '</ul>';
+    $output = '<ul>';
+    foreach ($results as $result) {
+        $url = esc_url(add_query_arg('name', $result->name, home_url('/ver-texto')));
+        $output .= "<li><a href='{$url}'>" . esc_html($result->name) . '</a></li>';
+    }
+    $output .= '</ul>';
+
+    return $output;
 }
 add_shortcode('coa_plugin_names', 'display_names_on_frontend');
 
-function display_text_on_frontend() {
-    $selected_name = isset($_GET['name']) ? sanitize_text_field($_GET['name']) : '';
-    $stored_data = get_option('coa_plugin_data', array());
+// Función para mostrar texto en el frontend
+function display_text_on_frontend($atts) {
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'coa_plugin_data';
 
-    if (isset($stored_data[$selected_name])) {
-        echo '<h2>' . esc_html($selected_name) . '</h2>';
-        echo '<p>' . esc_html($stored_data[$selected_name]) . '</p>';
+    $atts = shortcode_atts(array(
+        'name' => '', // Parametro para obtener el nombre de la URL
+    ), $atts);
+
+    $selected_name = sanitize_text_field($atts['name']);
+
+    $result = $wpdb->get_row($wpdb->prepare("SELECT text FROM $table_name WHERE name = %s", $selected_name));
+
+    if ($result) {
+        $output = '<h2>' . esc_html($selected_name) . '</h2>';
+        $output .= '<p>' . esc_html($result->text) . '</p>';
     } else {
-        echo '<p>Nombre no encontrado.</p>';
+        $output = '<p>Nombre no encontrado.</p>';
     }
+
+    return $output;
 }
 add_shortcode('coa_plugin_view_text', 'display_text_on_frontend');
 
-/*  Fondo rosa?
+
 function pink_page_styles() {
     echo '<style>
         body {
@@ -92,4 +161,4 @@ function pink_page_styles() {
     </style>';
 }
 
-add_action('wp_head', 'pink_page_styles'); */
+add_action('wp_head', 'pink_page_styles'); 
