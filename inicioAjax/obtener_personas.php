@@ -1,5 +1,5 @@
 <?php
-// Conexión a la base de datos (reemplaza con tus propios datos)
+//CAMBIAR Conexión a la base de datos 
 $host = "localhost";
 $usuario = "root";
 $clave = "";
