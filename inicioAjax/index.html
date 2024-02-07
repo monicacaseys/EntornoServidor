@@ -1,18 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listado</title>
+    <title>Listado de Personas</title>
+    <!-- Enlace a Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Estilos personalizados -->
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+    </style>
 </head>
 <body>
-
-    <button onclick="cargarPersonas('hombres')">Hombres</button>
-    <button onclick="cargarPersonas('mujeres')">Mujeres</button>
-    <button onclick="cargarPersonas('todos')">Todos</button>
-    <div id="resultado"></div>
+    <div class="container">
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" onclick="cargarPersonas('hombres')">Hombres</button>
+            <button type="button" class="btn btn-primary" onclick="cargarPersonas('mujeres')">Mujeres</button>
+            <button type="button" class="btn btn-primary" onclick="cargarPersonas('todos')">Todos</button>
+        </div>
+        <div id="resultado" class="mt-3"></div>
+    </div>
 
     <script src="script.js"></script>
-
 </body>
 </html>
+
+
