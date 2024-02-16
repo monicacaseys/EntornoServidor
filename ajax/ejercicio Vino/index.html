@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Vinos</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/jquery-ui.css">
+    <link rel="stylesheet" href="./css/estilo.css">
+</head>
+<body>
+
+<section>
+    <div class="container">
+        <div class="text-center">
+            <button type="button" id="mostrarVinos" class="btn btn-success">Mostrar Vinos</button>
+            <button type="button" id="crearVino" class="btn btn-primary">Crear Vino</button>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Tipo</th>
+                        <th>Año</th>
+                        <th>Descripción</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- Modal para crear vinos -->
+<div id="modalCrearVino" title="Crear Vino" style="display:none;">
+    <form id="formularioNuevoVino">
+        <label for="nuevoCodigo">Código:</label>
+        <input type="text" id="nuevoCodigo" name="nuevoCodigo">
+        <br>
+        <label for="nuevoNombre">Nombre:</label>
+        <input type="text" id="nuevoNombre" name="nuevoNombre">
+        <br>
+        <label for="nuevoTipo">Tipo:</label>
+        <input type="text" id="nuevoTipo" name="nuevoTipo">
+        <br>
+        <label for="nuevoAnio">Año:</label>
+        <input type="number" id="nuevoAnio" name="nuevoAnio" min="1900" max="2099" step="1" value="2022">
+        <br>
+        <label for="nuevaDescripcion">Descripción:</label>
+        <textarea id="nuevaDescripcion" name="nuevaDescripcion"></textarea>
+        <br>
+    </form>
+</div>
+<script src="js/sweetalert2.all.min.js"> </script>
+<script src="js/jquery-3.7.1.min.js"> </script>
+<script src="js/jquery-ui.js"> </script>
+<script src="js/moment.js"> </script>
+<script src="js/script.js"> </script>
+
+</body>
+</html>
